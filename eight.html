@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        @media only screen and (max-width: 974px) {
+
+            /* CONTENT */
+            .content {
+                width: 100%;
+                color: black;
+            }
+
+            /* FOOTER */
+            .footer .footer-content .footer-section {
+                padding: 20px;
+            }
+
+            .footer .footer-content .about .contact {
+                margin-top: 18px;
+            }
+
+            .auth-content {
+                width: 40%;
+            }
+
+            #outputimage {
+                height: 10px;
+            }
+
+            #workingimage {
+                height: 170px;
+            }
+
+            .language-python {
+                font-size: 0.7em;
+                font-family: 'Poppins';
+                position: relative;
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+                width: 40px;
+                height: 40px;
+                margin: 10px;
+                float: right;
+                cursor: pointer;
+                text-align: center;
+                font-size: 30px;
+                color: #96002d;
+            }
+
+            .menu-toggle:before {
+                content: '\f0c9';
+                font-family: fontAwesome;
+                line-height: 40px;
+            }
+
+            nav {
+                width: 100%;
+                background: #090909;
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                z-index: 1000;
+            }
+
+            nav.showing {
+                display: block;
+            }
+
+            nav ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+            }
+
+            nav ul li {
+                display: block;
+                width: 100%;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 15px;
+                color: white;
+                text-decoration: none;
+            }
+
+            nav ul li a:hover {
+                color: #ff014f;
+            }
+
+            header nav ul li ul {
+                position: static;
+                display: none;
+            }
+
+            header nav ul li:hover ul {
+                display: block;
+            }
+
+            header nav ul li ul li a {
+                padding-left: 50px;
+            }
+
+            #outputimage {
+                height: 10px;
+            }
+        }
+
+        #outputimage {
+            height: 270px;
+        }
+
+        #workingimage {
+            height: 200px;
+        }
+
+        .language-python {
+            font-size: 1em;
+            font-family: 'Mona-Sans';
+            position: relative;
+            right: 10px;
+        }
+
+        pre {
+            max-height: 300px;
+            overflow-y: scroll;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            white-space: pre-wrap;
+        }
+    </style>
+
+    <title>Graph Neural Networks (GNN)</title>
+</head>
+
+<body>
+
+    <!-- header -->
+    <header class="clearfix">
+        <div class="logo">
+            <a href="index.html">
+                <h1 class="logo-text"><span>AI</span>-AlgoHub</h1>
+            </a>
+        </div>
+        <div class="fa fa-reorder menu-toggle"></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="membership.html">Membership</a></li>
+                <li><a href="login.html"><i class="fa fa-user" aria-hidden="true"></i> Account</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- // header -->
+
+    <!-- Page wrapper -->
+    <div class="page-wrapper">
+
+        <!-- content -->
+        <div class="content clearfix">
+            <div class="page-content single">
+                <h2 style="text-align: center;color:#96002d;font-size:50px"><b>Graph Neural Networks (GNNs)</b></h2>
+                <br>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Introduction to Graph Neural Networks</b></h3>
+                    <p>Graph Neural Networks (GNNs) are a specialized type of deep learning model designed to operate on
+                        graph-structured data. Unlike traditional neural networks that work on grid-like data such as
+                        images or sequences, GNNs are capable of processing data represented as nodes and edges,
+                        capturing relationships and dependencies between entities. They are particularly valuable in
+                        domains where the interconnection between data points is essential, such as social network
+                        analysis, molecular chemistry, traffic networks, and recommendation systems. GNNs leverage graph
+                        topology and node attributes to learn complex representations, enabling tasks like
+                        classification, prediction, and clustering.</p>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Basic Structure of GNNs</b></h3>
+                    <ul>
+                        <li><b>Nodes:</b> Represent entities in the data, such as users in a social network or atoms in
+                            a molecule.</li>
+                        <li><b>Edges:</b> Denote relationships or interactions between nodes, like friendships or
+                            chemical bonds.</li>
+                        <li><b>Node Features:</b> Each node is associated with a feature vector that encodes its
+                            properties or attributes.</li>
+                        <li><b>Edge Features:</b> Some graphs include additional features for edges, capturing the type
+                            or strength of relationships.</li>
+                        <li><b>Graph-Level Features:</b> In some applications, the entire graph has attributes
+                            representing its overall properties.</li>
+                        <li><b>Layers:</b> GNNs consist of multiple layers where information is propagated and
+                            aggregated across nodes.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Working Mechanism of GNNs</b></h3>
+                    <img id="workingimage" src="images/gnn_working.png">
+                    <h3 style="color:black;font-size:26px"><b>1. Message Passing</b></h3>
+                    <ul>
+                        <li>In this step, nodes exchange information with their immediate neighbors through a learnable
+                            function.</li>
+                        <li>Messages are aggregated from neighboring nodes using techniques like summation, mean, or max
+                            pooling.</li>
+                        <li>The aggregated information helps each node capture the local structure and context.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>2. Feature Update</b></h3>
+                    <ul>
+                        <li>The aggregated information is combined with the node's existing features using a learnable
+                            transformation, such as a neural network.</li>
+                        <li>This process creates updated embeddings for each node, reflecting its own features and the
+                            influence of its neighbors.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>3. Layer Stacking</b></h3>
+                    <ul>
+                        <li>Multiple GNN layers are stacked to allow nodes to capture information from multi-hop
+                            neighbors.</li>
+                        <li>As the number of layers increases, the receptive field of each node grows, enabling it to
+                            learn from distant nodes in the graph.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>4. Global Pooling (if required)</b></h3>
+                    <ul>
+                        <li>For tasks like graph classification, a global pooling step combines node embeddings into a
+                            single graph-level embedding.</li>
+                        <li>Techniques like mean pooling, max pooling, or attention-based pooling are used for this
+                            aggregation.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>5. Optimization</b></h3>
+                    <ul>
+                        <li>The embeddings are optimized using task-specific loss functions, such as cross-entropy for
+                            classification or mean squared error for regression.</li>
+                        <li>Optimization techniques like stochastic gradient descent (SGD) are employed to adjust the
+                            learnable parameters.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Applications of GNNs</b></h3>
+                    <ul>
+                        <li><b>Social Networks:</b> Predict user connections, recommend friends, or classify users based
+                            on their network behavior.</li>
+                        <li><b>Molecular Chemistry:</b> Analyze molecular graphs for drug discovery, predicting
+                            properties like toxicity or solubility.</li>
+                        <li><b>Recommendation Systems:</b> Leverage user-item interaction graphs to recommend products
+                            or content.</li>
+                        <li><b>Traffic Networks:</b> Model and predict traffic patterns using road networks as graphs.
+                        </li>
+                        <li><b>Knowledge Graphs:</b> Perform link prediction or entity classification for tasks like
+                            question answering.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Advantages of GNNs</b></h3>
+                    <ul>
+                        <li><b>Adaptability:</b> GNNs can process diverse graph structures, making them versatile across
+                            domains.</li>
+                        <li><b>Relational Learning:</b> They effectively capture relationships and dependencies within
+                            graph data.</li>
+                        <li><b>End-to-End Learning:</b> GNNs integrate feature extraction and prediction into a single
+                            model.</li>
+                        <li><b>Scalability:</b> With appropriate optimizations, GNNs can handle graphs with millions of
+                            nodes and edges.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Limitations of GNNs</b></h3>
+                    <ul>
+                        <li><b>Computational Complexity:</b> Iterative message passing is resource-intensive for large
+                            graphs.</li>
+                        <li><b>Over-Smoothing:</b> As layers increase, node embeddings may converge to similar values,
+                            reducing performance.</li>
+                        <li><b>Scalability Issues:</b> GNNs struggle with extremely large graphs without specialized
+                            optimizations.</li>
+                        <li><b>Dependency on Graph Quality:</b> Poorly constructed or incomplete graphs can degrade GNN
+                            performance.</li>
+                        <li><b>Hyperparameter Sensitivity:</b> GNNs require careful tuning of parameters like layer
+                            depth and learning rate.</li>
+                    </ul>
+                </section>
+                <!-- Sample Code Example -->
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Sample Code Example</b></h3>
+                    <p>Graph Neural Networks in Action: Node Classification with PyTorch Geometric</p>
+                    <pre>
+    <code class="language-python">
+        import torch
+        import torch.nn as nn
+        import torch.optim as optim
+        from torch_geometric.nn import GCNConv
+        from torch_geometric.data import Data
+        import matplotlib.pyplot as plt
+        import networkx as nx
+        
+        # Define a simple GCN model
+        class GCN(nn.Module):
+            def __init__(self, in_channels, out_channels):
+                super(GCN, self).__init__()
+                self.conv1 = GCNConv(in_channels, 16)  # First GCN layer
+                self.conv2 = GCNConv(16, out_channels)  # Second GCN layer
+            
+            def forward(self, data):
+                x, edge_index = data.x, data.edge_index
+                x = self.conv1(x, edge_index)
+                x = torch.relu(x)
+                x = self.conv2(x, edge_index)
+                return x
+        
+        # Create a simple graph (toy example)
+        # Node feature matrix (3 nodes with 2 features each)
+        x = torch.tensor([[1, 0], [0, 1], [1, 1]], dtype=torch.float)
+        
+        # Edge list (connects nodes 0-1, 1-2, and 2-0)
+        edge_index = torch.tensor([[0, 1, 2], [1, 2, 0]], dtype=torch.long)
+        
+        # Labels for nodes (for classification)
+        y = torch.tensor([0, 1, 0], dtype=torch.long)
+        
+        # Create a PyG data object
+        data = Data(x=x, edge_index=edge_index, y=y)
+        
+        # Initialize the GCN model
+        model = GCN(in_channels=2, out_channels=2)
+        
+        # Loss and optimizer
+        criterion = nn.CrossEntropyLoss()
+        optimizer = optim.Adam(model.parameters(), lr=0.01)
+        
+        # Training loop
+        num_epochs = 200
+        for epoch in range(num_epochs):
+            model.train()
+            
+            # Zero gradients
+            optimizer.zero_grad()
+            
+            # Forward pass
+            out = model(data)
+            
+            # Compute loss (node classification)
+            loss = criterion(out, data.y)
+            
+            # Backward pass
+            loss.backward()
+            optimizer.step()
+            
+            if epoch % 20 == 0:
+                print(f'Epoch {epoch+1}, Loss: {loss.item()}')
+        
+        # Test the trained model
+        model.eval()
+        out = model(data)
+        _, pred = out.max(dim=1)
+        
+        print("\nPredicted labels:", pred)
+        
+        # Visualize the graph with node predictions
+        G = nx.Graph()
+        
+        # Add nodes
+        for i in range(data.x.shape[0]):
+            G.add_node(i, label=str(pred[i].item()))
+        
+        # Add edges
+        for i in range(edge_index.shape[1]):
+            G.add_edge(edge_index[0, i].item(), edge_index[1, i].item())
+        
+        # Visualize the graph using NetworkX
+        plt.figure(figsize=(6, 6))
+        pos = nx.spring_layout(G)  # Layout for the nodes
+        nx.draw(G, pos, with_labels=True, node_size=500, node_color=[plt.cm.Set1(i / 2) for i in pred.tolist()])
+        plt.title("Graph with Node Predictions")
+        plt.show()
+        
+</code>
+
+                    <section>
+                        <h1 style="color:black;position:relative;left:25px;"><b>Output:</b></h1>
+                        <img id="outputimage" src="images/gnn_output.png">
+                    </section></pre>
+            </div>
+
+            <div class="sidebar single">
+                <div class="section popular">
+                    <h2>Popular Algorithms</h2>
+
+                    <div class="post clearfix">
+                        <img src="images\dt.jpeg">
+                        <a href="one.html" class="title">Decision Trees</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/knn.jpg">
+                        <a href="two.html" class="title">K-Nearest Neighbors (KNN)</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/lr.png">
+                        <a href="three.html" class="title">Linear Regression</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/svm.webp">
+                        <a href="four.html" class="title">Support Vector Machines (SVM)</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/rfc.webp">
+                        <a href="five.html" class="title">Random Forest</a>
+                    </div>
+
+                </div>
+
+                <div class="section topics">
+                    <h2>Algorithm Repository</h2>
+                    <ul>
+                        <a href="supervisedlearning.html">
+                            <li>Supervised Learning</li>
+                        </a>
+                        <a href="deeplearning.html">
+                            <li>Deep Learning</li>
+                        </a>
+                        <a href="classification.html">
+                            <li>Classification Algorithms</li>
+                        </a>
+                        <a href="regression.html">
+                            <li>Regression Algorithms</li>
+                        </a>
+                        <a href="ensemblemethods.html">
+                            <li>Ensemble Methods</li>
+                        </a>
+                        <a href="probabilisticstatisticalmethods.html">
+                            <li>Probabilistic and Statistical Method</li>
+                        </a>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!-- // content -->
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h1 class="logo-text"><span>AI</span>-AlgoHub</h1>
+                <p>
+                    AI-AlgoHub showcases and explains AI algorithms, featuring popular machine learning techniques and
+                    trending AI
+                    methods. It provides resources for understanding and applying computational intelligence.
+                </p>
+                <div class="contact">
+                    <div class="contact-item">
+                        <i class="fa fa-envelope"></i>
+                        <span>abhay517035@gmail.com</span>
+                    </div>
+                </div>
+                <div class="social" style="position: relative; right:4px;">
+                    <a href="https://github.com/abhayrohit" target="_blank"><i class="fa fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/abhay-rohit-6053b8283/" target="_blank"><i
+                            class="fa fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section quick-links">
+                <h2 style="position:relative;top:5px;">Quick Links</h2>
+                <ul>
+                    <a href="index.html">
+                        <li>Home</li>
+                    </a>
+                    <a href="about.html">
+                        <li>About</li>
+                    </a>
+                    <a href="membership.html">
+                        <li>Membership</li>
+                    </a>
+                    <a href="algorithmrepository.html">
+                        <li>Algorithm Repository
+                        </li>
+                    </a>
+
+                </ul>
+            </div>
+            <div class="footer-section contact-form">
+                <h2 style="position:relative; top:5px;">Contact us</h2>
+                <br>
+                <form action="">
+                    <input style="font-family:'Poppins';" type="email" name="email" class="text-input contact-input"
+                        placeholder="Your email address">
+                    <textarea style="font-family:'Poppins';" rows="3" name="message" class="text-input contact-input"
+                        placeholder="Please drop your feedback here"></textarea>
+                    <button href="index.html" type="submit" class="btn btn-big contact-btn">
+                        <i class="fa fa-envelope"></i>
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div style="position:relative;top:30px;" class="footer-bottom">
+            &copy; 2024 AI-AlgoHub | Designed by AI-AlgoHub Team
+        </div>
+    </div>
+    <!-- // FOOTER -->
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.menu-toggle').on('click', function () {
+                $('nav').toggleClass('showing');
+            });
+
+            $(document).on('click', function (event) {
+                if (!$(event.target).closest('nav, .menu-toggle').length) {
+                    $('nav').removeClass('showing');
+                }
+            });
+
+            $('nav').on('click', function (event) {
+                event.stopPropagation();
+            });
+        });
+    </script>
+    <script src="js/scripts.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Naive Bayes</title>
+    <style>
+        @media only screen and (max-width: 974px) {
+
+            /* CONTENT */
+            .content {
+                width: 100%;
+                color: black;
+            }
+
+            /* FOOTER */
+            .footer .footer-content .footer-section {
+                padding: 20px;
+            }
+
+            .footer .footer-content .about .contact {
+                margin-top: 18px;
+            }
+
+            .auth-content {
+                width: 40%;
+            }
+
+            #outputimage {
+                height: 10px;
+                position: relative;
+                right: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+                width: 40px;
+                height: 40px;
+                margin: 10px;
+                float: right;
+                cursor: pointer;
+                text-align: center;
+                font-size: 30px;
+                color: #96002d;
+            }
+
+            .menu-toggle:before {
+                content: '\f0c9';
+                font-family: fontAwesome;
+                line-height: 40px;
+            }
+
+            nav {
+                width: 100%;
+                background: #090909;
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                z-index: 1000;
+            }
+
+            nav.showing {
+                display: block;
+            }
+
+            nav ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+            }
+
+            nav ul li {
+                display: block;
+                width: 100%;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 15px;
+                color: white;
+                text-decoration: none;
+            }
+
+            nav ul li a:hover {
+                color: #ff014f;
+            }
+
+            header nav ul li ul {
+                position: static;
+                display: none;
+            }
+
+            header nav ul li:hover ul {
+                display: block;
+            }
+
+            header nav ul li ul li a {
+                padding-left: 50px;
+            }
+
+            #outputimage {
+                height: 10px;
+            }
+        }
+
+        #outputimage {
+            height: 270px;
+        }
+
+        .language-python {
+            font-size: 1em;
+            font-family: 'Mona-Sans';
+            position: relative;
+            right: 10px;
+        }
+
+        pre {
+            max-height: 300px;
+            overflow-y: scroll;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- header -->
+    <header class="clearfix">
+        <div class="logo">
+            <a href="index.html">
+                <h1 class="logo-text"><span>AI</span>-AlgoHub</h1>
+            </a>
+        </div>
+        <div class="fa fa-reorder menu-toggle"></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="membership.html">Membership</a></li>
+                <li><a href="login.html"><i class="fa fa-user" aria-hidden="true"></i> Account</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- // header -->
+
+    <!-- Page wrapper -->
+    <div class="page-wrapper">
+
+        <!-- content -->
+        <div class="content clearfix">
+            <div class="page-content single">
+                <h2 style="text-align: center;color:#96002d;font-size:50px"><b>Naive Bayes</b></h2>
+                <br>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Introduction to Naive Bayes</b></h3>
+                    <p>Naive Bayes is a probabilistic machine learning algorithm based on Bayes' theorem, assuming that
+                        features are independent given the class. It's widely used for classification tasks due to its
+                        simplicity, efficiency, and effectiveness in handling large datasets.</p>
+                </section>
+                <!-- Working -->
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Working Mechanism of Naive Bayes</b></h3>
+                    <h3 style="color:black;font-size:26px"><b>1. Data Representation</b></h3>
+                    <ul>
+                        <li><b>Data Collection: </b>The first step involves collecting a labeled dataset where the
+                            target variable (class) and
+                            features (attributes) are defined. For example, in a spam email classification problem, the
+                            target could be whether the email is "spam" or "not spam," and the features could include
+                            words or phrases within the email.</li>
+                        <li><b>Data Preprocessing: </b> This step ensures that the data is clean and structured. This
+                            involves:
+                            <ul>
+                                <li>Handling missing values: Missing data can be filled using mean, median, or mode
+                                    imputation or simply removed.</li>
+                                <li>Feature selection: Removing irrelevant or redundant features can help the model
+                                    perform better.</li>
+                                <li>Feature scaling: Although Naive Bayes doesn’t require feature scaling, if you're
+                                    working with continuous data, it's a good idea to standardize the features.</li>
+                            </ul>
+                        </li>
+                        <li><b>Data Splitting: </b>The dataset is divided into two parts: training and testing sets. The
+                            training data is used to build the model, while the testing set is used to evaluate its
+                            performance.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>2.Model Training</b></h3>
+                    <ul>
+                        <li><b>Bayes' Theorem:</b> The model is trained using Bayes' theorem, which calculates the
+                            probability of a class (target variable) given a set of features. Bayes’ theorem is
+                            defined as:</li>
+                        <li style="list-style-type: none;">P(C∣X)= P(X∣C)P(C)/
+                            P(X)
+                        </li>
+                        <li>P(C∣X) is the posterior probability (probability of class
+                            C given features
+                            X).</li>
+                        <li>P(X∣C) is the likelihood (probability of observing features
+                            X given class
+                            C).</li>
+                        <li>P(C) is the prior probability (probability of class
+                            C without considering features).</li>
+                        <li>P(X) is the evidence (probability of observing features
+                            X).</li>
+                        <li><b>Likelihood Calculation:</b> For each class, the likelihood of the features given that
+                            class is calculated. For categorical features, this is typically done using frequency counts
+                            (e.g., how often a feature appears in each class). For continuous features, it is assumed
+                            that they follow a probability distribution, often Gaussian (Normal) distribution.
+                        </li>
+                        <li><b>Prior Probability:</b> The prior probability of each class is calculated from the
+                            training dataset as the ratio of the number of instances of that class to the total number
+                            of instances.
+                        </li>
+                        <li><b>Independence Assumption: </b> Since Naive Bayes assumes that features are conditionally
+                            independent, the likelihood of all features is computed by multiplying the individual
+                            probabilities. This makes the computation simpler and faster.
+                        </li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>3.Prediction</b></h3>
+                    <p></p>
+                    <ul>
+                        <li><b>Class Probability Calculation: </b> After training, the Naive Bayes model can predict the
+                            class of a new instance. For each possible class
+                            C, the model calculates the posterior probability using Bayes’ theorem, based on the values
+                            of the input features X.</li>
+                        <li><b>Choosing the Class:</b> The class with the highest posterior probability
+                            is chosen as the predicted class</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>4.Model Evaluation</b></h3>
+                    <ul>
+                        <li><b>Accuracy Measurement:</b>The performance of the Naive Bayes classifier is evaluated using
+                            the testing dataset. Common evaluation metrics include accuracy, precision, recall, and
+                            F1-score. Accuracy is the proportion of correctly predicted instances out of the total
+                            instances.</li>
+                        <li><b>Confusion Matrix: </b>A confusion matrix can also be used to visualize the performance of
+                            the classifier. It shows the number of true positives, true negatives, false positives, and
+                            false negatives.</li>
+                        <li><b>Cross-Validation:</b>In some cases, cross-validation is used to assess the model's
+                            generalizability by splitting the data into multiple subsets (folds) and evaluating the
+                            model on each fold. This helps reduce overfitting and ensures the model performs well on
+                            unseen data.</li>
+                    </ul>
+
+                    <section>
+                        <h3 style="color:#96002d;font-size:36px"><b>Advantages of Naive Bayes</b></h3>
+                        <ul>
+                            <li>Simple and efficient: Naive Bayes is easy to implement and computationally efficient.
+                            </li>
+                            <li>Handles large datasets well: It works well with large datasets and high-dimensional
+                                data, such as text classification.</li>
+                            <li>Works well with categorical and continuous data: Naive Bayes can handle both types of
+                                features effectively.</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3 style="color:#96002d;font-size:36px"><b>Disadvantages of Naive Bayes</b></h3>
+                        <ul>
+                            <li>Independence assumption: The algorithm assumes that features are independent, which is
+                                often unrealistic, leading to suboptimal performance when features are correlated.</li>
+                            <li>Sensitive to noisy data: Naive Bayes can perform poorly if the training data contains a
+                                lot of noise or irrelevant features.</li>
+                            <li>Limited expressiveness: The simplicity of Naive Bayes can limit its ability to capture
+                                complex relationships in the data.</li>
+                        </ul>
+                    </section>
+
+
+                    <!-- Sample Code Example -->
+                    <section>
+                        <h3 style="color:#96002d;font-size:36px"><b>Sample Code Example</b></h3>
+                        <p>Naive Bayes Classifier in Action: Classifying Iris Species based on Flower Features:</p>
+                        <pre>
+        <code class="language-python">
+            # Import necessary libraries
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score, confusion_matrix
+
+# Load Iris dataset
+from sklearn.datasets import load_iris
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Initialize the Naive Bayes classifier
+nb = GaussianNB()
+
+# Train the model
+nb.fit(X_train, y_train)
+
+# Predict on the test set
+y_pred = nb.predict(X_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy * 100:.2f}%")
+
+# Confusion Matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Plotting the Confusion Matrix
+plt.figure(figsize=(8, 6))
+sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=iris.target_names, yticklabels=iris.target_names)
+plt.title("Confusion Matrix for Naive Bayes on Iris Dataset")
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+plt.show()
+
+# Visualizing the decision boundaries for the first two features
+X2d = X[:, :2]  # Use only the first two features for visualization
+X_train2d, X_test2d, y_train2d, y_test2d = train_test_split(X2d, y, test_size=0.3, random_state=42)
+
+# Train Naive Bayes on 2D data
+nb.fit(X_train2d, y_train2d)
+
+# Create a meshgrid for visualization
+x_min, x_max = X2d[:, 0].min() - 1, X2d[:, 0].max() + 1
+y_min, y_max = X2d[:, 1].min() - 1, X2d[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1), np.arange(y_min, y_max, 0.1))
+
+# Predict on the meshgrid points
+Z = nb.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+
+# Plot decision boundary
+plt.figure(figsize=(8, 6))
+plt.contourf(xx, yy, Z, alpha=0.8)
+plt.scatter(X_train2d[:, 0], X_train2d[:, 1], c=y_train2d, edgecolors='k', marker='o', s=100, cmap="viridis")
+plt.scatter(X_test2d[:, 0], X_test2d[:, 1], c=y_test2d, edgecolors='r', marker='x', s=100, cmap="viridis")
+
+plt.title("Naive Bayes Decision Boundaries (2D)")
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.show()
+
+            
+        </code>
+        <h1 style="color:black;position:relative;left:25px;"><b>Output:</b></h1>
+        <img src="images/nb1_output.png" style="height:280px;"> 
+        <img src="images/nb2_output.png" style="height:280px;">
+    </pre>
+            </div>
+
+            <div class="sidebar single">
+
+                <div class="section popular">
+                    <h2>Popular Algorithms</h2>
+
+                    <div class="post clearfix">
+                        <img src="images/p.webp">
+                        <a href="seven.html" class="title">Perceptron</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/rfc.webp">
+                        <a href="five.html" class="title">Random Forest</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/svm.webp">
+                        <a href="four.html" class="title">Support Vector Machines (SVM)</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/lr.png">
+                        <a href="three.html" class="title">Linear Regression</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/gnn.jpeg">
+                        <a href="eight.html" class="title">Graph Neural Networks (GNNs)</a>
+                    </div>
+
+
+                </div>
+
+                <div class="section topics">
+                    <h2>Algorithm Repository</h2>
+                    <ul>
+                        <a href="supervisedlearning.html">
+                            <li>Supervised Learning</li>
+                        </a>
+                        <a href="deeplearning.html">
+                            <li>Deep Learning</li>
+                        </a>
+                        <a href="classification.html">
+                            <li>Classification Algorithms</li>
+                        </a>
+                        <a href="regression.html">
+                            <li>Regression Algorithms</li>
+                        </a>
+                        <a href="ensemblemethods.html">
+                            <li>Ensemble Methods</li>
+                        </a>
+                        <a href="probabilisticstatisticalmethods.html">
+                            <li>Probabilistic and Statistical Method</li>
+                        </a>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!-- // content -->
+
+    </div>
+    <!-- // page wrapper -->
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h1 class="logo-text"><span>AI</span>-AlgoHub</h1>
+                <p>
+                    AI-AlgoHub showcases and explains AI algorithms, featuring popular machine learning techniques and
+                    trending AI
+                    methods. It provides resources for understanding and applying computational intelligence.
+                </p>
+                <div class="contact">
+                    <div class="contact-item">
+                        <i class="fa fa-envelope"></i>
+                        <span>abhay517035@gmail.com</span>
+                    </div>
+                </div>
+                <div class="social" style="position: relative; right:4px;">
+                    <a href="https://github.com/abhayrohit" target="_blank"><i class="fa fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/abhay-rohit-6053b8283/" target="_blank"><i
+                            class="fa fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section quick-links">
+                <h2 style="position:relative;top:5px;">Quick Links</h2>
+                <ul>
+                    <a href="index.html">
+                        <li>Home</li>
+                    </a>
+                    <a href="about.html">
+                        <li>About</li>
+                    </a>
+                    <a href="membership.html">
+                        <li>Membership</li>
+                    </a>
+                    <a href="algorithmrepository.html">
+                        <li>Algorithm Repository
+                        </li>
+                    </a>
+
+                </ul>
+            </div>
+            <div class="footer-section contact-form">
+                <h2 style="position:relative; top:5px;">Contact us</h2>
+                <br>
+                <form action="">
+                    <input style="font-family:'Mona-Sans';" type="email" name="email" class="text-input contact-input"
+                        placeholder="Your email address">
+                    <textarea style="font-family:'Mona-Sans';" rows="3" name="message" class="text-input contact-input"
+                        placeholder="Please drop your feedback here"></textarea>
+                    <button href="index.html" type="submit" class="btn btn-big contact-btn">
+                        <i class="fa fa-envelope"></i>
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 AI-AlgoHub | Designed by AI-AlgoHub Team
+        </div>
+    </div>
+    <!-- // FOOTER -->
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.menu-toggle').on('click', function () {
+                $('nav').toggleClass('showing');
+            });
+
+            $(document).on('click', function (event) {
+                if (!$(event.target).closest('nav, .menu-toggle').length) {
+                    $('nav').removeClass('showing');
+                }
+            });
+
+            $('nav').on('click', function (event) {
+                event.stopPropagation();
+            });
+        });
+    </script>
+
+    <script src="js/scripts.js"></script>
+
+</body>
+
+</html>

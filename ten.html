@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        @media only screen and (max-width: 974px) {
+
+            /* CONTENT */
+            .content {
+                width: 100%;
+                color: black;
+            }
+
+            /* FOOTER */
+            .footer .footer-content .footer-section {
+                padding: 20px;
+            }
+
+            .footer .footer-content .about .contact {
+                margin-top: 18px;
+            }
+
+            .auth-content {
+                width: 40%;
+            }
+
+            #outputimage {
+                height: 10px;
+            }
+
+            #workingimage {
+                height: 170px;
+            }
+
+            .language-python {
+                font-size: 0.7em;
+                font-family: 'Poppins';
+                position: relative;
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+                width: 40px;
+                height: 40px;
+                margin: 10px;
+                float: right;
+                cursor: pointer;
+                text-align: center;
+                font-size: 30px;
+                color: #96002d;
+            }
+
+            .menu-toggle:before {
+                content: '\f0c9';
+                font-family: fontAwesome;
+                line-height: 40px;
+            }
+
+            nav {
+                width: 100%;
+                background: #090909;
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                z-index: 1000;
+            }
+
+            nav.showing {
+                display: block;
+            }
+
+            nav ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+            }
+
+            nav ul li {
+                display: block;
+                width: 100%;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 15px;
+                color: white;
+                text-decoration: none;
+            }
+
+            nav ul li a:hover {
+                color: #ff014f;
+            }
+
+            header nav ul li ul {
+                position: static;
+                display: none;
+            }
+
+            header nav ul li:hover ul {
+                display: block;
+            }
+
+            header nav ul li ul li a {
+                padding-left: 50px;
+            }
+
+            #outputimage {
+                height: 10px;
+            }
+        }
+
+        #outputimage {
+            height: 270px;
+        }
+
+        #workingimage {
+            height: 270px;
+        }
+
+        .language-python {
+            font-size: 1em;
+            font-family: 'Mona-Sans';
+            position: relative;
+            right: 10px;
+        }
+
+        pre {
+            max-height: 300px;
+            overflow-y: scroll;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            white-space: pre-wrap;
+        }
+    </style>
+
+    <title>Recurrent Neural Network (RNN)</title>
+</head>
+
+<body>
+
+    <!-- header -->
+    <header class="clearfix">
+        <div class="logo">
+            <a href="index.html">
+                <h1 class="logo-text"><span>AI</span>-AlgoHub</h1>
+            </a>
+        </div>
+        <div class="fa fa-reorder menu-toggle"></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="membership.html">Membership</a></li>
+                <li><a href="login.html"><i class="fa fa-user" aria-hidden="true"></i> Account</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- // header -->
+
+    <!-- Page wrapper -->
+    <div class="page-wrapper">
+
+        <!-- content -->
+        <div class="content clearfix">
+            <div class="page-content single">
+                <h2 style="text-align: center;color:#96002d;font-size:50px"><b>Recurrent Neural Networks (RNNs)</b></h2>
+                <br>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Introduction to Recurrent Neural Networks</b></h3>
+                    <p>Recurrent Neural Networks (RNNs) are a class of neural networks designed to process sequential
+                        data, making them particularly suitable for tasks where the order of input matters, such as time
+                        series prediction, natural language processing, and speech recognition. Unlike traditional
+                        feedforward neural networks, RNNs have loops that enable them to maintain a memory of previous
+                        inputs, allowing information to persist and influence future computations.</p>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Basic Structure of RNNs</b></h3>
+                    <ul>
+                        <li><b>Input Layer:</b> Sequential data is fed into the network, where each time step is treated
+                            as a separate input.</li>
+                        <li><b>Hidden Layer:</b> The core of the RNN contains recurrent connections, which allow the
+                            network to maintain a hidden state that captures information about previous time steps.</li>
+                        <li><b>Output Layer:</b> Produces predictions or outputs based on the current input and the
+                            hidden state.</li>
+                        <li><b>Weights Sharing:</b> The same set of weights is used across all time steps, enabling the
+                            network to generalize well over sequences of varying lengths.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Working Mechanism of RNNs</b></h3>
+                    <img id="workingimage" src="images/rnn_working.png">
+                    <h3 style="color:black;font-size:26px"><b>1. Sequential Input Processing</b></h3>
+                    <ul>
+                        <li>Data is fed into the network one time step at a time, allowing the model to process
+                            sequences of arbitrary length.</li>
+                        <li>At each time step, the input is combined with the hidden state from the previous time step.
+                        </li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>2. Hidden State Update</b></h3>
+                    <ul>
+                        <li>The hidden state is updated using a non-linear activation function, typically tanh or ReLU.
+                        </li>
+                        <li>This hidden state acts as the network's memory, storing information about the sequence so
+                            far.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>3. Output Generation</b></h3>
+                    <ul>
+                        <li>The updated hidden state is used to compute the output at each time step.</li>
+                        <li>For many-to-one tasks, the output is generated only after processing the entire sequence.
+                        </li>
+                        <li>For many-to-many tasks, an output is generated at each time step.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>4. Backpropagation Through Time (BPTT)</b></h3>
+                    <ul>
+                        <li>To train the network, gradients are computed over the entire sequence using BPTT.</li>
+                        <li>This involves unrolling the network over time and calculating gradients for each time step.
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Applications of RNNs</b></h3>
+                    <ul>
+                        <li><b>Natural Language Processing (NLP):</b> Used for tasks like sentiment analysis, machine
+                            translation, and text generation.</li>
+                        <li><b>Speech Recognition:</b> Converts spoken language into text by processing audio signals as
+                            sequences.</li>
+                        <li><b>Time Series Prediction:</b> Predicts future values based on historical data in domains
+                            like finance and weather forecasting.</li>
+                        <li><b>Video Analysis:</b> Processes sequences of frames to perform tasks like action
+                            recognition.</li>
+                        <li><b>Music Generation:</b> Learns patterns in musical sequences to generate new compositions.
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Advantages of RNNs</b></h3>
+                    <ul>
+                        <li><b>Sequence Handling:</b> RNNs are inherently designed to process sequential data, making
+                            them ideal for tasks like time series and language modeling.</li>
+                        <li><b>Parameter Sharing:</b> Recurrent connections reduce the number of parameters, enabling
+                            efficient learning over sequences.</li>
+                        <li><b>Memory of Context:</b> The hidden state allows the network to retain information about
+                            past inputs, providing context for future predictions.</li>
+                        <li><b>Flexibility:</b> RNNs can handle sequences of varying lengths, making them versatile
+                            across different applications.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Limitations of RNNs</b></h3>
+                    <ul>
+                        <li><b>Vanishing Gradient Problem:</b> During training, gradients can become very small, leading
+                            to difficulty in learning long-term dependencies.</li>
+                        <li><b>Exploding Gradient Problem:</b> Conversely, gradients can become excessively large,
+                            causing instability during training.</li>
+                        <li><b>Limited Long-Term Memory:</b> Standard RNNs struggle to capture dependencies over long
+                            sequences, requiring advanced architectures like LSTMs or GRUs.</li>
+                        <li><b>High Computational Cost:</b> Sequential processing and backpropagation through time make
+                            RNNs computationally expensive.</li>
+                        <li><b>Difficulty in Parallelization:</b> Unlike feedforward networks, RNNs process one step at
+                            a time, limiting their scalability.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Variants of RNNs</b></h3>
+                    <ul>
+                        <li><b>Long Short-Term Memory (LSTM):</b> Overcomes the vanishing gradient problem using gates
+                            to control information flow, enabling better handling of long-term dependencies.</li>
+                        <li><b>Gated Recurrent Unit (GRU):</b> A simplified version of LSTM with fewer parameters,
+                            achieving similar performance in many tasks.</li>
+                        <li><b>Bidirectional RNNs:</b> Processes sequences in both forward and backward directions to
+                            capture context from both ends.</li>
+                        <li><b>Attention Mechanism:</b> Enhances RNNs by allowing the model to focus on specific parts
+                            of the input sequence, widely used in transformer models.</li>
+                    </ul>
+                </section>
+                <!-- Sample Code Example -->
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Sample Code Example</b></h3>
+                    <p>RNN in Action: Predicting Sequential Data with TensorFlow</p>
+                    <pre>
+    <code class="language-python">
+        # Import required libraries
+import numpy as np
+import matplotlib.pyplot as plt
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import SimpleRNN, Dense
+from sklearn.model_selection import train_test_split
+
+# Generate synthetic sequential data (sin wave)
+def generate_data(samples=1000, timesteps=10):
+    x = np.linspace(0, 100, samples)
+    y = np.sin(x)
+    data = []
+    labels = []
+    for i in range(len(y) - timesteps):
+        data.append(y[i:i+timesteps])
+        labels.append(y[i+timesteps])
+    return np.array(data), np.array(labels)
+
+# Prepare the dataset
+timesteps = 10
+data, labels = generate_data()
+data = data.reshape(-1, timesteps, 1)  # Reshape for RNN input
+labels = labels.reshape(-1, 1)
+
+# Split the data into training and testing sets
+x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size=0.2, random_state=42)
+
+# Build the RNN model
+model = Sequential()
+model.add(SimpleRNN(32, activation='tanh', input_shape=(timesteps, 1)))
+model.add(Dense(1))  # Single output for regression
+
+# Compile the model
+model.compile(optimizer='adam', loss='mse', metrics=['mae'])
+
+# Train the model and save history for visualization
+history = model.fit(x_train, y_train, epochs=20, batch_size=32, validation_data=(x_test, y_test))
+
+# Evaluate the model
+test_loss, test_mae = model.evaluate(x_test, y_test, verbose=2)
+print(f"Test Mean Absolute Error: {test_mae:.4f}")
+
+# Visualize the training progress (MAE and Loss)
+plt.figure(figsize=(12, 6))
+
+# MAE plot
+plt.subplot(1, 2, 1)
+plt.plot(history.history['mae'], label='Training MAE')
+plt.plot(history.history['val_mae'], label='Validation MAE')
+plt.title('Training and Validation MAE')
+plt.xlabel('Epochs')
+plt.ylabel('Mean Absolute Error')
+plt.legend()
+
+# Loss plot
+plt.subplot(1, 2, 2)
+plt.plot(history.history['loss'], label='Training Loss')
+plt.plot(history.history['val_loss'], label='Validation Loss')
+plt.title('Training and Validation Loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+
+# Visualize predictions vs actual values
+y_pred = model.predict(x_test)
+plt.figure(figsize=(10, 5))
+plt.plot(range(50), y_test[:50], label="Actual Values")
+plt.plot(range(50), y_pred[:50], label="Predicted Values")
+plt.title("RNN Predictions vs Actual Values")
+plt.xlabel("Sample Index")
+plt.ylabel("Value")
+plt.legend()
+plt.show()
+
+</code>
+
+                    <section>
+                        <h1 style="color:black;position:relative;left:25px;"><b>Output:</b></h1>
+                        <img id="outputimage" src="images/rnn_output.png">
+                    </section></pre>
+            </div>
+
+            <div class="sidebar single">
+                <div class="section popular">
+                    <h2>Popular Algorithms</h2>
+
+                    <div class="post clearfix">
+                        <img src="images/gnn.jpeg">
+                        <a href="eight.html" class="title">Graph Neural Networks (GNNs)</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/lr.png">
+                        <a href="three.html" class="title">Linear Regression</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/rfc.webp">
+                        <a href="five.html" class="title">Random Forest</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/p.webp">
+                        <a href="seven.html" class="title">Perceptron</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/nb.webp">
+                        <a href="six.html" class="title">Naive Bayes</a>
+                    </div>
+
+                </div>
+
+                <div class="section topics">
+                    <h2>Algorithm Repository
+                    </h2>
+                    <ul>
+                        <a href="supervisedlearning.html">
+                            <li>Supervised Learning</li>
+                        </a>
+                        <a href="deeplearning.html">
+                            <li>Deep Learning</li>
+                        </a>
+                        <a href="classification.html">
+                            <li>Classification Algorithms</li>
+                        </a>
+                        <a href="regression.html">
+                            <li>Regression Algorithms</li>
+                        </a>
+                        <a href="ensemblemethods.html">
+                            <li>Ensemble Methods</li>
+                        </a>
+                        <a href="probabilisticstatisticalmethods.html">
+                            <li>Probabilistic and Statistical Method</li>
+                        </a>
+                    </ul>
+                </div>
+                <!-- // topics -->
+
+            </div>
+        </div>
+        <!-- // content -->
+
+    </div>
+    <!-- // page wrapper -->
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h1 class="logo-text"><span>AI</span>-AlgoHub</h1>
+                <p>
+                    AI-AlgoHub showcases and explains AI algorithms, featuring popular machine learning techniques and
+                    trending AI
+                    methods. It provides resources for understanding and applying computational intelligence.
+                </p>
+                <div class="contact">
+                    <div class="contact-item">
+                        <i class="fa fa-envelope"></i>
+                        <span>abhay517035@gmail.com</span>
+                    </div>
+                </div>
+                <div class="social" style="position: relative; right:4px;">
+                    <a href="https://github.com/abhayrohit" target="_blank"><i class="fa fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/abhay-rohit-6053b8283/" target="_blank"><i
+                            class="fa fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section quick-links">
+                <h2 style="position:relative;top:5px;">Quick Links</h2>
+                <ul>
+                    <a href="index.html">
+                        <li>Home</li>
+                    </a>
+                    <a href="about.html">
+                        <li>About</li>
+                    </a>
+                    <a href="membership.html">
+                        <li>Membership</li>
+                    </a>
+                    <a href="algorithmrepository.html">
+                        <li>Algorithm Repository
+                        </li>
+                    </a>
+
+                </ul>
+            </div>
+            <div class="footer-section contact-form">
+                <h2 style="position:relative; top:5px;">Contact us</h2>
+                <br>
+                <form action="">
+                    <input style="font-family:'Poppins';" type="email" name="email" class="text-input contact-input"
+                        placeholder="Your email address">
+                    <textarea style="font-family:'Poppins';" rows="3" name="message" class="text-input contact-input"
+                        placeholder="Please drop your feedback here"></textarea>
+                    <button href="index.html" type="submit" class="btn btn-big contact-btn">
+                        <i class="fa fa-envelope"></i>
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div style="position:relative;top:30px;" class="footer-bottom">
+            &copy; 2024 AI-AlgoHub | Designed by AI-AlgoHub Team
+        </div>
+    </div>
+    <!-- // FOOTER -->
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.menu-toggle').on('click', function () {
+                $('nav').toggleClass('showing');
+            });
+
+            $(document).on('click', function (event) {
+                if (!$(event.target).closest('nav, .menu-toggle').length) {
+                    $('nav').removeClass('showing');
+                }
+            });
+
+            $('nav').on('click', function (event) {
+                event.stopPropagation();
+            });
+        });
+    </script>
+
+    <script src="js/scripts.js"></script>
+
+</body>
+
+</html>

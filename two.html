@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        @media only screen and (max-width: 974px) {
+
+            /* CONTENT */
+            .content {
+                width: 100%;
+                color: black;
+            }
+
+            /* FOOTER */
+            .footer .footer-content .footer-section {
+                padding: 20px;
+            }
+
+            .footer .footer-content .about .contact {
+                margin-top: 18px;
+            }
+
+            .auth-content {
+                width: 40%;
+            }
+
+            #outputimage {
+                height: 10px;
+            }
+
+            #workingimage {
+                height: 170px;
+            }
+
+            .language-python {
+                font-size: 0.7em;
+                font-family: 'Poppins';
+                position: relative;
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+                width: 40px;
+                height: 40px;
+                margin: 10px;
+                float: right;
+                cursor: pointer;
+                text-align: center;
+                font-size: 30px;
+                color: #96002d;
+            }
+
+            .menu-toggle:before {
+                content: '\f0c9';
+                font-family: fontAwesome;
+                line-height: 40px;
+            }
+
+            nav {
+                width: 100%;
+                background: #090909;
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                z-index: 1000;
+            }
+
+            nav.showing {
+                display: block;
+            }
+
+            nav ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+            }
+
+            nav ul li {
+                display: block;
+                width: 100%;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 15px;
+                color: white;
+                text-decoration: none;
+            }
+
+            nav ul li a:hover {
+                color: #ff014f;
+            }
+
+            header nav ul li ul {
+                position: static;
+                display: none;
+            }
+
+            header nav ul li:hover ul {
+                display: block;
+            }
+
+            header nav ul li ul li a {
+                padding-left: 50px;
+            }
+
+            #outputimage {
+                height: 10px;
+            }
+        }
+
+        #outputimage {
+            height: 270px;
+        }
+
+        #workingimage {
+            height: 270px;
+        }
+
+        .language-python {
+            font-size: 1em;
+            font-family: 'Mona-Sans';
+            position: relative;
+            right: 10px;
+        }
+
+        pre {
+            max-height: 300px;
+            overflow-y: scroll;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            white-space: pre-wrap;
+        }
+    </style>
+
+    <title>K-Nearest Neighbors (KNN)</title>
+</head>
+
+<body>
+
+    <!-- header -->
+    <header class="clearfix">
+        <div class="logo">
+            <a href="index.html">
+                <h1 class="logo-text"><span>AI</span>-AlgoHub</h1>
+            </a>
+        </div>
+        <div class="fa fa-reorder menu-toggle"></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="membership.html">Membership</a></li>
+                <li><a href="login.html"><i class="fa fa-user" aria-hidden="true"></i> Account</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- // header -->
+
+    <!-- Page wrapper -->
+    <div class="page-wrapper">
+
+        <!-- content -->
+        <div class="content clearfix">
+            <div class="page-content single">
+                <h2 style="text-align: center;color:#96002d;font-size:50px"><b>K-Nearest Neighbors (KNN)</b></h2>
+                <br>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Introduction to K-Nearest Neighbors</b></h3>
+                    <p>K-Nearest Neighbors (KNN) is a simple yet effective supervised machine learning algorithm used
+                        for both classification and regression tasks. It operates based on the principle that similar
+                        data points are likely to belong to the same class or have similar values.</p>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Basic Concept of KNN</b></h3>
+                    <ul>
+                        <li>Instance-Based Learning: KNN is a type of instance-based learning, where the model does not
+                            learn a discriminative function from the training data but rather memorizes the training
+                            dataset.</li>
+                        <li>Distance Metrics: KNN relies on calculating the distance between points in the feature
+                            space. Common metrics include Euclidean distance, Manhattan distance, and Minkowski
+                            distance.</li>
+                        <li>K Parameter: The 'K' in KNN represents the number of nearest neighbors to consider when
+                            classifying a new data point.</li>
+                        <li>Voting Mechanism: In classification, KNN uses the majority vote of the K-nearest neighbors
+                            to determine the class of the new point.</li>
+                        <li>Regression: For regression tasks, KNN predicts the average of the K-nearest neighbors'
+                            target values.</li>
+                    </ul>
+                </section>
+                <!-- Working -->
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Working Mechanism of KNN</b></h3>
+                    <img id="workingimage" src="images/knn_working.png">
+                    <h3 style="color:black;font-size:26px"><b>1.Data Preparation</b></h3>
+                    <ul>
+                        <li>Collect the dataset that you want to use for training. This dataset should contain labeled
+                            examples, meaning each data point has both features (input variables) and a label (output).
+                        </li>
+                        <li>Each data point is represented as a feature vector in a multi-dimensional space. The number
+                            of dimensions corresponds to the number of features.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>2.Choose the Number of Neighbors (K)</b></h3>
+                    <ul>
+                        <li>K is a crucial hyperparameter that determines the number of nearest neighbors to consider
+                            when making a classification or prediction.
+                        </li>
+                        <li>The value of K should be chosen carefully. A small K might lead to noise affecting the
+                            results (overfitting), while a large K could smooth out the data too much (underfitting).
+                            Common practice is to try different values of K and use cross-validation to find the optimal
+                            one.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>3.Calculate Distance</b></h3>
+                    <ul>
+                        <li>For each new data point (the one you want to classify), calculate the distance between this
+                            point and all the points in the training set.
+                        </li>
+                        <li>Distance Metrics: Common distance metrics include:</li>
+                        <ul>
+                            <li>Euclidean Distance: Most commonly used, calculated as the straight-line distance between
+                                two points in space.</li>
+                            <li>Manhattan Distance: Distance measured along axes at right angles.</li>
+                            <li>Minkowski Distance: A generalized distance metric that includes both Euclidean and
+                                Manhattan distances.</li>
+                            <li>Hamming Distance: Used for categorical variables.</li>
+                        </ul>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>4.Find the K Nearest Neighbors</b></h3>
+                    <ul>
+                        <li>Once the distances are calculated, sort all the training points in increasing order of
+                            distance from the query point.</li>
+                        <li>Select the top K points that are closest to the query point. These are the K-nearest
+                            neighbors.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>5.Vote for Classification (in case of classification
+                            task)</b></h3>
+                    <ul>
+                        <li>Each of the K-nearest neighbors “votes” for their class, i.e., the label associated with
+                            each neighbor.</li>
+                        <li>The class that receives the most votes among the K neighbors is assigned as the class of the
+                            query point.</li>
+                        <li><b>Weighted KNN:</b> In some cases, the voting can be weighted based on the distance,
+                            meaning
+                            nearer neighbors have a greater influence than those farther away.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>6.Average for Regression (in case of regression task)</b>
+                    </h3>
+                    <p>If KNN is being used for regression, the average (or sometimes weighted average) of the values of
+                        the K nearest neighbors is taken as the prediction for the new data point.</p>
+                    <h3 style="color:black;font-size:26px"><b>7.Assign the Class/Value to the Query Point</b>
+                    </h3>
+                    <p>Based on the majority voting (in classification) or average calculation (in regression), the
+                        query point is assigned the corresponding label or value.</p>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Important Considerations in KNN</b></h3>
+                    <p>Choosing the right value of K is a crucial aspect of the KNN algorithm. A small value of K can
+                        make the model highly sensitive to noise in the data, leading to overfitting, whereas a large K
+                        value can cause the model to underfit by oversmoothing the decision boundary. It's common
+                        practice to select an odd value for K to prevent ties in classification problems. Feature
+                        scaling is another critical consideration for KNN, as the algorithm relies on distance
+                        calculations to identify neighbors. Without proper scaling, features with larger ranges can
+                        dominate the distance metric, leading to biased results. Therefore, normalization or
+                        standardization of features is essential to ensure all features contribute equally.</p>
+                    <p>KNN can also be computationally expensive because it requires calculating the distance of the
+                        query point from every point in the training set. This means that storing and searching through
+                        large datasets for each prediction can be time-consuming and slow, especially as the dataset
+                        grows. Another challenge with KNN is related to dimensionality. The performance of KNN can
+                        degrade with high-dimensional data due to the "curse of dimensionality," where the volume of the
+                        space increases exponentially, making data points sparse and reducing the effectiveness of the
+                        nearest neighbors' search.</p>
+                    <p>Handling missing data in KNN can be done by imputing missing values using the values of the
+                        nearest neighbors, which provides a way to fill in gaps in the data. Unlike many other machine
+                        learning algorithms, KNN does not have a training phase, as it is a type of lazy learning. This
+                        means that all computations are deferred until the classification phase, and all training data
+                        must be retained to make predictions for new data points.</p>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Advantages of KNN</b></h3>
+                    <ul>
+                        <li>Simple and easy to understand: KNN is a straightforward algorithm with no complex
+                            mathematical models.</li>
+                        <li>No training phase: KNN is a lazy learner, meaning it doesn't require a training phase to
+                            build a model.</li>
+                        <li>Versatile: KNN can be used for both classification and regression tasks.</li>
+                        <li>Can handle non-linear relationships: KNN can capture non-linear relationships in the data.
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Disadvantages of KNN</b></h3>
+                    <ul>
+                        <li>Computationally expensive: KNN can be slow for large datasets, especially when calculating
+                            distances for all training points.</li>
+                        <li>Sensitive to the choice of distance metric: The choice of distance metric can significantly
+                            impact the performance of KNN.</li>
+                        <li>Sensitive to the curse of dimensionality: As the number of dimensions increases, the
+                            distance between points becomes less meaningful, making KNN less effective.</li>
+                        <li>Requires labeled data: KNN is a supervised algorithm and requires labeled data for training.
+                        </li>
+                    </ul>
+                </section>
+                <!-- Sample Code Example -->
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Sample Code Example</b></h3>
+                    <p>KNN in Action: Classifying Iris Species Using scikit-learn:</p>
+                    <pre>
+    <code class="language-python">
+# Import required libraries
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_moons
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from matplotlib.colors import ListedColormap
+
+# Generate a synthetic dataset
+X, y = make_moons(n_samples=300, noise=0.3, random_state=42)
+
+# Split the data into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Standardize the data
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Create a KNN classifier
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train, y_train)
+
+# Evaluate the model
+accuracy = knn.score(X_test, y_test)
+print(f"Model accuracy: {accuracy * 100:.2f}%")
+
+# Create a mesh grid for plotting decision boundaries
+x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
+y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02),
+                     np.arange(y_min, y_max, 0.02))
+
+# Predict classifications for each point in the mesh grid
+Z = knn.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+
+# Plot decision boundaries and scatter plot
+plt.figure(figsize=(10, 6))
+cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA'])
+cmap_bold = ListedColormap(['#FF0000', '#00FF00'])
+
+# Plot the decision boundary by assigning a color to each point in the mesh
+plt.contourf(xx, yy, Z, cmap=cmap_light)
+
+# Plot the training points
+plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap=cmap_bold, edgecolor='k', s=20)
+plt.title('K-Nearest Neighbors decision boundary (k=5) on make_moons dataset')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+
+# Show the plot
+plt.show()
+</code>
+
+                    <section>
+                        <h1 style="color:black;position:relative;left:25px;"><b>Output:</b></h1>
+                        <img id="outputimage" src="images/knn_output.png">
+                    </section></pre>
+            </div>
+
+            <div class="sidebar single">
+                <div class="section popular">
+                    <h2>Popular Algorithms</h2>
+
+                    <div class="post clearfix">
+                        <img src="images\dt.jpeg">
+                        <a href="one.html" class="title">Decision Trees</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/rnn.jpeg">
+                        <a href="ten.html" class="title">Recurrent Neural Network (RNN)</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/lr.png">
+                        <a href="three.html" class="title">Linear Regression</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/svm.webp">
+                        <a href="four.html" class="title">Support Vector Machines (SVM)</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/rfc.webp">
+                        <a href="five.html" class="title">Random Forest</a>
+                    </div>
+
+                </div>
+
+                <div class="section topics">
+                    <h2>Algorithm Repository
+                    </h2>
+                    <ul>
+                        <a href="supervisedlearning.html">
+                            <li>Supervised Learning</li>
+                        </a>
+                        <a href="deeplearning.html">
+                            <li>Deep Learning</li>
+                        </a>
+                        <a href="classification.html">
+                            <li>Classification Algorithms</li>
+                        </a>
+                        <a href="regression.html">
+                            <li>Regression Algorithms</li>
+                        </a>
+                        <a href="ensemblemethods.html">
+                            <li>Ensemble Methods</li>
+                        </a>
+                        <a href="probabilisticstatisticalmethods.html">
+                            <li>Probabilistic and Statistical Method</li>
+                        </a>
+                    </ul>
+                </div>
+                <!-- // topics -->
+
+            </div>
+        </div>
+        <!-- // content -->
+
+    </div>
+    <!-- // page wrapper -->
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h1 class="logo-text"><span>AI</span>-AlgoHub</h1>
+                <p>
+                    AI-AlgoHub showcases and explains AI algorithms, featuring popular machine learning techniques and
+                    trending AI
+                    methods. It provides resources for understanding and applying computational intelligence.
+                </p>
+                <div class="contact">
+                    <div class="contact-item">
+                        <i class="fa fa-envelope"></i>
+                        <span>abhay517035@gmail.com</span>
+                    </div>
+                </div>
+                <div class="social" style="position: relative; right:4px;">
+                    <a href="https://github.com/abhayrohit" target="_blank"><i class="fa fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/abhay-rohit-6053b8283/" target="_blank"><i
+                            class="fa fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section quick-links">
+                <h2 style="position:relative;top:5px;">Quick Links</h2>
+                <ul>
+                    <a href="index.html">
+                        <li>Home</li>
+                    </a>
+                    <a href="about.html">
+                        <li>About</li>
+                    </a>
+                    <a href="membership.html">
+                        <li>Membership</li>
+                    </a>
+                    <a href="algorithmrepository.html">
+                        <li>Algorithm Repository
+                        </li>
+                    </a>
+
+                </ul>
+            </div>
+            <div class="footer-section contact-form">
+                <h2 style="position:relative; top:5px;">Contact us</h2>
+                <br>
+                <form action="">
+                    <input style="font-family:'Poppins';" type="email" name="email" class="text-input contact-input"
+                        placeholder="Your email address">
+                    <textarea style="font-family:'Poppins';" rows="3" name="message" class="text-input contact-input"
+                        placeholder="Please drop your feedback here"></textarea>
+                    <button href="index.html" type="submit" class="btn btn-big contact-btn">
+                        <i class="fa fa-envelope"></i>
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div style="position:relative;top:30px;" class="footer-bottom">
+            &copy; 2024 AI-AlgoHub | Designed by AI-AlgoHub Team
+        </div>
+    </div>
+    <!-- // FOOTER -->
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.menu-toggle').on('click', function () {
+                $('nav').toggleClass('showing');
+            });
+
+            $(document).on('click', function (event) {
+                if (!$(event.target).closest('nav, .menu-toggle').length) {
+                    $('nav').removeClass('showing');
+                }
+            });
+
+            $('nav').on('click', function (event) {
+                event.stopPropagation();
+            });
+        });
+    </script>
+    <script src="js/scripts.js"></script>
+
+</body>
+
+</html>

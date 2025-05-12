@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Support Vector Machines (SVM)</title>
+    <style>
+        @media only screen and (max-width: 974px) {
+
+            /* CONTENT */
+            .content {
+                width: 100%;
+                color: black;
+            }
+
+            /* FOOTER */
+            .footer .footer-content .footer-section {
+                padding: 20px;
+            }
+
+            .footer .footer-content .about .contact {
+                margin-top: 18px;
+            }
+
+            .auth-content {
+                width: 40%;
+            }
+
+            #outputimage {
+                height: 10px;
+                position: relative;
+                right: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+                width: 40px;
+                height: 40px;
+                margin: 10px;
+                float: right;
+                cursor: pointer;
+                text-align: center;
+                font-size: 30px;
+                color: #96002d;
+            }
+
+            .menu-toggle:before {
+                content: '\f0c9';
+                font-family: fontAwesome;
+                line-height: 40px;
+            }
+
+            nav {
+                width: 100%;
+                background: #090909;
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                z-index: 1000;
+            }
+
+            nav.showing {
+                display: block;
+            }
+
+            nav ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+            }
+
+            nav ul li {
+                display: block;
+                width: 100%;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 15px;
+                color: white;
+                text-decoration: none;
+            }
+
+            nav ul li a:hover {
+                color: #ff014f;
+            }
+
+            header nav ul li ul {
+                position: static;
+                display: none;
+            }
+
+            header nav ul li:hover ul {
+                display: block;
+            }
+
+            header nav ul li ul li a {
+                padding-left: 50px;
+            }
+
+            #outputimage {
+                height: 10px;
+            }
+        }
+
+        #outputimage {
+            height: 270px;
+        }
+
+        #workingimage {
+            height: 230px;
+        }
+
+        .language-python {
+            font-size: 1em;
+            font-family: 'Mona-Sans';
+            position: relative;
+            right: 10px;
+        }
+
+        pre {
+            max-height: 300px;
+            overflow-y: scroll;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- header -->
+    <header class="clearfix">
+        <div class="logo">
+            <a href="index.html">
+                <h1 class="logo-text"><span>AI</span>-AlgoHub</h1>
+            </a>
+        </div>
+        <div class="fa fa-reorder menu-toggle"></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="membership.html">Membership</a></li>
+                <li><a href="login.html"><i class="fa fa-user" aria-hidden="true"></i> Account</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- // header -->
+
+    <!-- Page wrapper -->
+    <div class="page-wrapper">
+
+        <!-- content -->
+        <div class="content clearfix">
+            <div class="page-content single">
+                <h2 style="text-align: center;color:#96002d;font-size:50px"><b>Support Vector Machines (SVM)</b></h2>
+                <br>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Introduction to Support Vector Machines</b></h3>
+                    <p>Support Vector Machines (SVM) are a class of supervised learning algorithms used for
+                        classification and regression tasks. They work by finding the hyperplane that best separates the
+                        data into different classes in a high-dimensional space.</p>
+                </section>
+                <!-- Working -->
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Working Mechanism of SVM</b></h3>
+                    <img id="workingimage" src="images/svm_working.png">
+                    <h3 style="color:black;font-size:26px"><b>1. Data Representation</b></h3>
+                    <ul>
+                        <li>Feature Space:Each data point in the training set is represented as a vector in an
+                            n-dimensional feature space, where 'n' is the number of features.</li>
+                        <li>Labels:
+                            For classification, each vector (data point) is labeled according to its class, e.g.,
+                            positive (+1) or negative (-1).</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>2.Linear Separation</b></h3>
+                    <ul>
+                        <li><b>Goal:</b>SVM aims to find the optimal hyperplane that best separates the data points into
+                            two classes.</li>
+                        <li><b>Hyperplane:</b> A hyperplane is a decision boundary that divides the feature space into
+                            two parts, with data points on either side belonging to different classes.
+                        </li>
+                        <li><b>Linear Separability:</b> If the data is linearly separable, SVM identifies a straight
+                            line (in 2D) or a flat plane (in higher dimensions) that maximizes the margin between the
+                            classes.
+                        </li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>3.Maximizing the Margin</b></h3>
+                    <ul>
+                        <li><b>Margin:</b>The margin is the distance between the hyperplane and the closest data points
+                            from each class. The goal is to maximize this margin.</li>
+                        <li><b>Support Vectors:</b>Support vectors are the data points that lie closest to the
+                            hyperplane and have the most influence on its position and orientation. Only these points
+                            are used to define the optimal hyperplane.</li>
+                        <li><b>Optimal Hyperplane:</b>The hyperplane is chosen such that the margin between the support
+                            vectors of different classes is maximized, reducing the risk of misclassification.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>4.Handling Non-linearly Separable Data</b></h3>
+                    <ul>
+                        <li><b>Kernel Trick:</b>When data is not linearly separable, SVM uses a technique called the
+                            kernel trick. This transforms the data into a higher-dimensional space where a linear
+                            separation is possible.</li>
+                        <li><b>Common Kernels:</b></li>
+                        <ul>
+                            <li>Linear Kernel: Used when the data is linearly separable.</li>
+                            <li>Polynomial Kernel: Maps the data into higher polynomial dimensions.</li>
+                            <li>Radial Basis Function (RBF) Kernel: Useful for non-linear data, mapping it into
+                                infinite-dimensional space.</li>
+                        </ul>
+                        <li><b>Implicit Transformation:</b>The kernel trick allows SVM to operate in the
+                            higher-dimensional space without
+                            explicitly computing the transformation, making it computationally efficient.
+                        </li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>5.Soft Margin for Noisy Data</b></h3>
+                    <ul>
+                        <li><b>Real-world Data:</b> In many real-world cases, data is not perfectly separable. Outliers
+                            and noise can exist.
+                        </li>
+                        <li><b>Soft Margin SVM:</b>To handle this, SVM introduces a soft margin that allows some
+                            misclassifications or violations of the margin constraints.
+                        </li>
+                        <li><b>Regularization Parameter (C):</b>The regularization parameter C controls the trade-off
+                            between maximizing the margin and allowing for classification errors (soft margin). A small
+                            value of C creates a larger margin but allows more misclassifications, while a large value
+                            of C attempts to classify all points correctly but might lead to a smaller margin and
+                            potential overfitting.
+                        </li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>6.Mathematical Formulation</b></h3>
+                    <ul>
+                        <li><b>Objective:</b>The SVM optimization problem can be formulated as:</li>
+                        <ul>
+                            <li>Maximize the margin:∣∣w∣∣</li>
+                            <li>Subject to the constraint: 𝑦
+                                𝑖
+                                (
+                                𝑤
+                                ⋅
+                                𝑥
+                                𝑖
+                                +
+                                𝑏
+                                )
+                                ≥
+                                1
+                                y
+                                i
+                                ​
+                                (w⋅x
+                                i
+                                ​
+                                +b)≥1 for all
+                                𝑖
+                                i, where
+                                𝑦
+                                𝑖
+                                y
+                                i
+                                ​
+                                is the label and
+                                𝑥
+                                𝑖
+                                x
+                                i
+                                ​
+                                is the feature vector.</li>
+                        </ul>
+                        <li><b>Optimization Problem:
+                            </b>This is solved using methods such as quadratic programming to find the optimal weight
+                            vector w and bias b that define the hyperplane.
+                        </li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>7.Prediction</b></h3>
+                    <ul>
+                        <li>Once the model is trained, the decision function for any new data point
+                            𝑥
+                            x is given by:
+                            𝑓
+                            (
+                            𝑥
+                            )
+                            =
+                            𝑠
+                            𝑖
+                            𝑔
+                            𝑛
+                            (
+                            𝑤
+                            ⋅
+                            𝑥
+                            +
+                            𝑏
+                            )
+                            f(x)=sign(w⋅x+b)</li>
+                        <li>The sign of this function determines the class of the data point. If
+                            𝑓
+                            (
+                            𝑥
+                            )
+                            f(x) is positive, the data point belongs to one class; if negative, it belongs to the other
+                            class.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>8.Evaluation and Generalization</b></h3>
+                    <ul>
+                        <li>After training the model, it is evaluated on a test set to measure performance metrics like
+                            accuracy, precision, recall, and F1-score.
+                        </li>
+                        <li>SVM aims to generalize well to unseen data by maximizing the margin and minimizing the
+                            influence of noisy data points.
+                        </li>
+                    </ul>
+
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Advantages of SVM</b></h3>
+                    <ul>
+                        <li>Effective in high-dimensional spaces: SVMs work well even when the number of features is
+                            large relative to the number of samples.</li>
+                        <li>Robust to overfitting: Especially in high-dimensional settings, SVMs are effective in
+                            avoiding overfitting by focusing on support vectors.</li>
+                        <li>Flexible with different kernel functions: SVMs can use different kernels to handle
+                            non-linear data separations.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Disadvantages of SVM</b></h3>
+                    <ul>
+                        <li>Computationally expensive: Training an SVM, especially with large datasets, can be slow and
+                            resource-intensive.</li>
+                        <li>Sensitive to choice of kernel and parameters: The performance of SVMs is highly dependent on
+                            the selection of the appropriate kernel and tuning of the parameters.</li>
+                        <li>Not well-suited for large datasets: SVMs may struggle with performance when applied to very
+                            large datasets.</li>
+                    </ul>
+                </section>
+
+                <!-- Sample Code Example -->
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Sample Code Example</b></h3>
+                    <p>Linear Regression in Action: Predicting House Prices based on Size:</p>
+                    <pre>
+        <code class="language-python">
+            # svm_visualization.py
+
+            import numpy as np
+            import matplotlib.pyplot as plt
+            import seaborn as sns
+            from sklearn import datasets
+            from sklearn.model_selection import train_test_split
+            from sklearn.svm import SVC
+            from sklearn.metrics import accuracy_score
+            
+            # Load dataset (using the Iris dataset for simplicity)
+            iris = datasets.load_iris()
+            X = iris.data[:, :2]  # Use only the first two features for easy 2D visualization
+            y = iris.target
+            
+            # Train-test split
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+            
+            # Create and train the SVM model
+            model = SVC(kernel='linear', C=1.0)
+            model.fit(X_train, y_train)
+            
+            # Predict the test set
+            y_pred = model.predict(X_test)
+            print(f"Accuracy: {accuracy_score(y_test, y_pred):.2f}")
+            
+            # Visualization
+            def plot_decision_boundary(X, y, model):
+                # Create a grid of points
+                x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+                y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+                xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02),
+                                     np.arange(y_min, y_max, 0.02))
+                
+                # Predict class labels for each point in the grid
+                Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+                Z = Z.reshape(xx.shape)
+                
+                # Plot the decision boundary
+                plt.contourf(xx, yy, Z, alpha=0.8, cmap=sns.color_palette("coolwarm", as_cmap=True))
+                
+                # Plot the data points
+                sns.scatterplot(x=X[:, 0], y=X[:, 1], hue=y, palette="coolwarm", edgecolor="k", s=100)
+                
+                # Set labels
+                plt.xlabel(iris.feature_names[0])
+                plt.ylabel(iris.feature_names[1])
+                plt.title("SVM Decision Boundary")
+                plt.show()
+            
+            # Plot decision boundary
+            plot_decision_boundary(X_train, y_train, model)
+            
+            
+        </code>
+        <h1 style="color:black;position:relative;left:25px;"><b>Output:</b></h1>
+        <img src="images/svm_output.png" style="height:280px;">  </pre>
+            </div>
+
+            <div class="sidebar single">
+
+                \ <div class="section popular">
+                    <h2>Popular Algorithms</h2>
+
+                    <div class="post clearfix">
+                        <img src="images/p.webp">
+                        <a href="seven.html" class="title">Perceptron</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/gnn.jpeg">
+                        <a href="eight.html" class="title">Graph Neural Networks (GNNs)</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/rfc.webp">
+                        <a href="five.html" class="title">Random Forest</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/lr.png">
+                        <a href="three.html" class="title">Linear Regression</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/rnn.jpeg">
+                        <a href="ten.html" class="title">Recurrent Neural Network (RNN)</a>
+                    </div>
+                </div>
+
+                \ <div class="section topics">
+                    <h2>Algorithm Repository
+                    </h2>
+                    <ul>
+                        <a href="supervisedlearning.html">
+                            <li>Supervised Learning</li>
+                        </a>
+                        <a href="deeplearning.html">
+                            <li>Deep Learning</li>
+                        </a>
+                        <a href="classification.html">
+                            <li>Classification Algorithms</li>
+                        </a>
+                        <a href="regression.html">
+                            <li>Regression Algorithms</li>
+                        </a>
+                        <a href="ensemblemethods.html">
+                            <li>Ensemble Methods</li>
+                        </a>
+                        <a href="probabilisticstatisticalmethods.html">
+                            <li>Probabilistic and Statistical Method</li>
+                        </a>
+                    </ul>
+                </div>
+                <!-- // topics -->
+
+            </div>
+        </div>
+        <!-- // content -->
+
+    </div>
+    <!-- // page wrapper -->
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h1 class="logo-text"><span>AI</span>-AlgoHub</h1>
+                <p>
+                    AI-AlgoHub showcases and explains AI algorithms, featuring popular machine learning techniques and
+                    trending AI
+                    methods. It provides resources for understanding and applying computational intelligence.
+                </p>
+                <div class="contact">
+                    <div class="contact-item">
+                        <i class="fa fa-envelope"></i>
+                        <span>abhay517035@gmail.com</span>
+                    </div>
+                </div>
+                <div class="social" style="position: relative; right:4px;">
+                    <a href="https://github.com/abhayrohit" target="_blank"><i class="fa fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/abhay-rohit-6053b8283/" target="_blank"><i
+                            class="fa fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section quick-links">
+                <h2 style="position:relative;top:5px;">Quick Links</h2>
+                <ul>
+                    <a href="index.html">
+                        <li>Home</li>
+                    </a>
+                    <a href="about.html">
+                        <li>About</li>
+                    </a>
+                    <a href="membership.html">
+                        <li>Membership</li>
+                    </a>
+                    <a href="algorithmrepository.html">
+                        <li>Algorithm Repository
+                        </li>
+                    </a>
+
+                </ul>
+            </div>
+            <div class="footer-section contact-form">
+                <h2 style="position:relative; top:5px;">Contact us</h2>
+                <br>
+                <form action="">
+                    <input style="font-family:'Mona-Sans';" type="email" name="email" class="text-input contact-input"
+                        placeholder="Your email address">
+                    <textarea style="font-family:'Mona-Sans';" rows="3" name="message" class="text-input contact-input"
+                        placeholder="Please drop your feedback here"></textarea>
+                    <button href="index.html" type="submit" class="btn btn-big contact-btn">
+                        <i class="fa fa-envelope"></i>
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 AI-AlgoHub | Designed by AI-AlgoHub Team
+        </div>
+    </div>
+    <!-- // FOOTER -->
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.menu-toggle').on('click', function () {
+                $('nav').toggleClass('showing');
+            });
+
+            $(document).on('click', function (event) {
+                if (!$(event.target).closest('nav, .menu-toggle').length) {
+                    $('nav').removeClass('showing');
+                }
+            });
+
+            $('nav').on('click', function (event) {
+                event.stopPropagation();
+            });
+        });
+    </script>
+    <script src="js/scripts.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membership - AI-AlgoHub</title>
+
+  <link rel="stylesheet" href="css/membership.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+
+<body style="background-color: black;">
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <header>
+    <div class="nav container">
+      <a href="index.html" class="animated-text">
+        <h1 style="font-size: 40px;"><b>AI-AlgoHub</b></h1>
+      </a>
+      <!-- Cart-Icon -->
+      <i class='bx bx-shopping-bag' id="cart-icon"></i>
+      <!-- Cart -->
+      <div class="cart">
+        <h2 class="cart-title">Your Plan</h2>
+        <!-- Content -->
+        <div class="cart-content">
+
+        </div>
+        <!-- Total -->
+        <div class="total">
+          <div class="total-title">Total</div>
+          <div class="total-price"><ion-icon name="cash-outline"></ion-icon> 0</div>
+        </div>
+        <!-- Buy Button -->
+        <button type="button" class="btn-buy">Buy Now</button>
+        <!-- Cart Close -->
+        <i class='bx bx-x' id="close-cart"></i>
+
+      </div>
+    </div>
+  </header>
+
+  <section class="shop container">
+    <h2 class="section-title" style="font-size: 30px;color:#ff014f;"><b>Membership Plans</b></h2>
+
+    <div class="shop-content">
+      <!-- Box 1 -->
+      <div class="product-box glassmorph">
+        <img src="images/bronze.jpg" alt="" class="product-img">
+        <h2 class="product-title" style="color:#ff014f;"><b>Bronze</b></h2>
+        <p class="product-description">Gain access to beginner-friendly resources and essential AI learning materials.
+        </p>
+        <span class="price" style="color:#189314"><ion-icon name="cash-outline"></ion-icon>50</span>
+        <i class='bx bx-shopping-bag add-cart'></i>
+      </div>
+
+      <!-- Box 2 -->
+      <div class="product-box glassmorph">
+        <img src="images/silver.jpg" alt="" class="product-img">
+        <h2 class="product-title" style="color:#ff014f;"><b>Silver</b></h2>
+        <p class="product-description">Explore intermediate-level tutorials and in-depth algorithm guides.</p>
+        <span class="price" style="color:#189314"><ion-icon name="cash-outline"></ion-icon>100</span>
+        <i class='bx bx-shopping-bag add-cart'></i>
+      </div>
+
+      <!-- Box 3 -->
+      <div class="product-box glassmorph">
+        <img src="images/gold.jpg" alt="" class="product-img">
+        <h2 class="product-title" style="color:#ff014f;"><b>Gold</b></h2>
+        <p class="product-description">Unlock advanced resources, interactive tools, and hands-on project examples.</p>
+        <span class="price" style="color:#189314"><ion-icon name="cash-outline"></ion-icon>200</span>
+        <i class='bx bx-shopping-bag add-cart'></i>
+      </div>
+
+      <!-- Box 4 -->
+      <div class="product-box glassmorph">
+        <img src="images/plat.jpg" alt="" class="product-img">
+        <h2 class="product-title" style="color:#ff014f;"><b>Platinum</b></h2>
+        <p class="product-description">Experience exclusive content, one-on-one mentorship, and priority support.</p>
+        <span class="price" style="color:#189314"><ion-icon name="cash-outline"></ion-icon>500</span>
+        <i class='bx bx-shopping-bag add-cart'></i>
+      </div>
+
+
+    </div>
+  </section>
+
+  <script src="js/membership.js"></script>
+
+</body>
+
+</html>

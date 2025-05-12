@@ -1,0 +1,507 @@
+<!--Decision Trees-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        @media only screen and (max-width: 974px) {
+
+            /* CONTENT */
+            .content {
+                width: 100%;
+                color: black;
+            }
+
+            /* FOOTER */
+            .footer .footer-content .footer-section {
+                padding: 20px;
+            }
+
+            .footer .footer-content .about .contact {
+                margin-top: 18px;
+            }
+
+            .auth-content {
+                width: 40%;
+            }
+
+            #outputimage {
+                height: 10px;
+            }
+
+            #workingimage {
+                height: 170px;
+            }
+
+            .language-python {
+                font-size: 0.7em;
+                font-family: 'Mona-Sans';
+                position: relative;
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+                width: 40px;
+                height: 40px;
+                margin: 10px;
+                float: right;
+                cursor: pointer;
+                text-align: center;
+                font-size: 30px;
+                color: #96002d;
+            }
+
+            .menu-toggle:before {
+                content: '\f0c9';
+                font-family: fontAwesome;
+                line-height: 40px;
+            }
+
+            nav {
+                width: 100%;
+                background: #090909;
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                z-index: 1000;
+            }
+
+            nav.showing {
+                display: block;
+            }
+
+            nav ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+            }
+
+            nav ul li {
+                display: block;
+                width: 100%;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 15px;
+                color: white;
+                text-decoration: none;
+            }
+
+            nav ul li a:hover {
+                color: #ff014f;
+            }
+
+            header nav ul li ul {
+                position: static;
+                display: none;
+            }
+
+            header nav ul li:hover ul {
+                display: block;
+            }
+
+            header nav ul li ul li a {
+                padding-left: 50px;
+            }
+
+            #outputimage {
+                height: 10px;
+            }
+        }
+
+        #outputimage {
+            height: 270px;
+        }
+
+        #workingimage {
+            height: 300px;
+        }
+
+        .language-python {
+            font-size: 1em;
+            font-family: 'Mona-Sans';
+            position: relative;
+            right: 10px;
+        }
+
+        pre {
+            max-height: 300px;
+            overflow-y: scroll;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            white-space: pre-wrap;
+        }
+    </style>
+
+    <title>Decision Trees</title>
+</head>
+
+<body>
+
+    <!-- header -->
+    <header class="clearfix">
+        <div class="logo">
+            <a href="index.html">
+                <h1 class="logo-text"><span>AI</span>-AlgoHub</h1>
+            </a>
+        </div>
+        <div class="fa fa-reorder menu-toggle"></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="membership.html">Membership</a></li>
+                <li><a href="login.html"><i class="fa fa-user" aria-hidden="true"></i> Account</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- // header -->
+
+    <!-- Page wrapper -->
+    <div class="page-wrapper">
+
+        <!-- content -->
+        <div class="content clearfix">
+            <div class="page-content single">
+                <h2 style="text-align: center;color:#96002d;font-size:50px"><b>Decision Trees</b></h2>
+                <br>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Introduction to Decision Trees</b></h3>
+                    <p>Decision trees are a popular machine learning algorithm used for both classification and
+                        regression tasks. They are essentially flowcharts that represent a series of decisions and their
+                        possible outcomes. Each node in the tree represents a test or decision, and each branch
+                        represents a possible outcome.</p>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Basic Structure of a Decision Tree</b></h3>
+                    <ul>
+                        <li>Root Node: The starting point of a decision tree, representing the entire dataset.</li>
+                        <li>Leaf Node: The final output of a decision tree, where no further division is possible.</li>
+                        <li>Splitting: The process of dividing a node into sub-nodes based on specific criteria.</li>
+                        <li>Branch/Subtree: A smaller decision tree formed by splitting a node.</li>
+                        <li>Pruning: The process of removing unnecessary branches from a decision tree to simplify it
+                            and prevent overfitting.</li>
+                        <li>Parent/Child Node: The root node is the parent node, and the nodes connected to it are child
+                            nodes.</li>
+                    </ul>
+                </section>
+                <!-- Working -->
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Working Mechanism of Decision Trees</b></h3>
+                    <img id="workingimage" src="images/dt_working.png">
+                    <h3 style="color:black;font-size:26px"><b>1.Data Preparation</b></h3>
+                    <p>The process begins with a dataset containing features (input variables) and a target variable
+                        (what we want to predict). The data is typically split into training and testing sets.
+                    </p>
+                    <h3 style="color:black;font-size:26px"><b>2.Tree Construction</b></h3>
+                    <ul>
+                        <li>Root Node: The starting point of a decision tree, representing the entire dataset.</li>
+                        <li>Attribute Selection:
+                            For each node, the algorithm must decide which feature to use for splitting the data. This
+                            is done by evaluating all features and choosing the one that results in the best split. The
+                            "best" split is determined by a metric such as:</li>
+                        <ul>
+                            <li>Information Gain: Measures the reduction in entropy (disorder) after a split.</li>
+                            <li>Gini Index: Measures the impurity or probability of incorrect classification.</li>
+                            <li>Chi-square: Measures the independence between the feature and the target variable.</li>
+                        </ul>
+                        <li style="list-style-type: none;;">The algorithm calculates these metrics for each potential
+                            split and selects the feature that provides the highest value.</li>
+                        <li>Splitting:
+                            Once the best feature is selected, the data is split into subsets based on the feature's
+                            values. For categorical features, each value typically creates a new branch. For continuous
+                            features, a threshold is determined to create binary splits.</li>
+                        <li>Recursive Splitting:
+                            Steps b and c are repeated recursively for each newly created node, creating child nodes.
+                            This process continues until a stopping criterion is met, such as:</li>
+                        <ul>
+                            <li>Maximum tree depth is reached</li>
+                            <li>Minimum number of samples in a leaf node is reached</li>
+                            <li>All samples in a node belong to the same class</li>
+                            <li>Further splitting would not improve the results significantly</li>
+                        </ul>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>3.Pruning (Optional)</b></h3>
+                    <p>After the tree is fully grown, it may be pruned to reduce complexity and prevent overfitting:</p>
+                    <ul>
+                        <li>Post-pruning: Remove branches that do not significantly improve prediction accuracy.</li>
+                        <li>Pre-pruning: Stop growing the tree earlier, before it perfectly fits the training data.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>4.Making Predictions</b></h3>
+                    <p>To make a prediction for new data: </p>
+                    <ul>
+                        <li>Start at the root node.</li>
+                        <li>Evaluate the feature/condition at the current node.</li>
+                        <li>Follow the appropriate branch based on the feature value.</li>
+                        <li> Repeat steps b and c until reaching a leaf node.</li>
+                        <li>The prediction is based on the leaf node:</li>
+                        <ul>
+                            <li>For classification: Predict the majority class in the leaf.</li>
+                            <li>For regression: Predict the average value of samples in the leaf.</li>
+                        </ul>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>5.Handling Missing Values</b></h3>
+                    <p>When encountering missing values, common strategies include:</p>
+                    <ul>
+                        <li>Using surrogate splits (secondary features that closely mimic the primary split)</li>
+                        <li>Sending the sample down all possible branches and averaging the results</li>
+                        <li>Imputing the missing value before traversing the tree</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>6.Continuous Updates</b></h3>
+                    <p>In some implementations, decision trees can be updated incrementally as new data becomes
+                        available, adjusting split points or growing new branches as needed.</p>
+                    <h3 style="color:black;font-size:26px"><b>5.Handling Missing Values</b></h3>
+                    <p>While not part of the basic decision tree algorithm, it's worth noting that decision trees are
+                        often used in ensemble methods:</p>
+                    <ul>
+                        <li>Random Forests: Build multiple trees on random subsets of data and features, then aggregate
+                            their predictions.</li>
+                        <li>Gradient Boosting: Sequentially build trees, with each new tree focusing on correcting the
+                            errors of the previous ones.</li>
+                    </ul>
+                    <section>
+                        <h3 style="color:#96002d;font-size:36px"><b>Advantages of Decision Trees</b></h3>
+                        <ul>
+                            <li>Easy to understand and interpret: Decision trees are visually appealing and can be
+                                easily understood by non-technical people.</li>
+                            <li>Can handle both numerical and categorical data: Decision trees can work with different
+                                types of data.</li>
+                            <li>No need for feature scaling: Unlike some other algorithms, decision trees do not require
+                                feature scaling.</li>
+                            <li>Efficient for large datasets: Decision trees can be relatively efficient for large
+                                datasets.</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3 style="color:#96002d;font-size:36px"><b>Disadvantages of Decision Trees</b></h3>
+                        <ul>
+                            <li>Prone to overfitting: Decision trees can easily overfit the training data, especially
+                                for complex datasets.</li>
+                            <li>Sensitive to small changes in data: Small changes in the data can lead to significant
+                                changes in the decision tree.</li>
+                            <li>May not perform well for continuous variables: Decision trees can struggle with
+                                continuous variables, especially if they have many distinct values.</li>
+                        </ul>
+                    </section>
+                    <!-- Sample Code Example -->
+
+                    <!-- Sample Code Example -->
+                    <section>
+                        <h3 style="color:#96002d;font-size:36px"><b>Sample Code Example</b></h3>
+                        <p>Decision Tree in Action: Implementing a Weather-Based Tennis Play Predictor using
+                            scikit-learn :</p>
+                        <pre>
+        <code class="language-python">
+    # Import necessary libraries
+    from sklearn import tree
+    import pandas as pd
+    import numpy as np
+    
+    # Define the dataset
+    # Features: [Outlook, Temperature, Humidity, Wind]
+    # Outlook: 0=Sunny, 1=Overcast, 2=Rain
+    # Temperature: 0=Hot, 1=Mild, 2=Cool
+    # Humidity: 0=High, 1=Normal
+    # Wind: 0=Weak, 1=Strong
+    features = np.array([
+        [0, 0, 0, 0],  # Sunny, Hot, High Humidity, Weak Wind
+        [0, 0, 0, 1],  # Sunny, Hot, High Humidity, Strong Wind
+        [1, 0, 0, 0],  # Overcast, Hot, High Humidity, Weak Wind
+        ...
+    ])
+    
+    # Labels: 0=Don't Play, 1=Play
+    labels = np.array([0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0])
+    
+    # Create a Decision Tree Classifier
+    clf = tree.DecisionTreeClassifier()
+    
+    # Train the classifier (fit the model)
+    clf = clf.fit(features, labels)
+    
+    # Test prediction
+    # Predict whether to play tennis or not based on new conditions
+    # Test Case: Sunny, Cool, High Humidity, Strong Wind -> [0, 2, 0, 1]
+    prediction = clf.predict([[0, 2, 0, 1]])
+    
+    print("Predicted result:", "Play Tennis" if prediction[0] == 1 else "Don't Play Tennis")
+    
+    # Plot the decision tree
+    import matplotlib.pyplot as plt
+    
+    fig = plt.figure(figsize=(10,8))
+    _ = tree.plot_tree(clf, 
+                       feature_names=['Outlook', 'Temperature', 'Humidity', 'Wind'],  
+                       class_names=['Don\'t Play', 'Play'], 
+                       filled=True)
+    plt.show()
+        </code>
+  
+
+               
+                        <p style="color:black;font-size:1.5em;"><b>Output:</b></p>
+                        <img id="outputimage" src="images/dt_output.png">
+        
+                    </pre>
+            </div>
+
+            <div class="sidebar single">
+                <div class="section popular">
+                    <h2>Popular Algorithms</h2>
+
+                    <div class="post clearfix">
+                        <img src="images/knn.jpg">
+                        <a href="two.html" class="title">K-Nearest Neighbors (KNN)</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/svm.webp">
+                        <a href="four.html" class="title">Support Vector Machines (SVM)</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/lr.png">
+                        <a href="three.html" class="title">Linear Regression</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/rfc.webp">
+                        <a href="five.html" class="title">Random Forest</a>
+                    </div>
+                    <div class="post clearfix">
+                        <img src="images/nb.webp">
+                        <a href="six.html" class="title">Naive Bayes</a>
+                    </div>
+
+                </div>
+
+                <div class="section topics">
+                    <h2>Algorithm Repository
+                    </h2>
+                    <ul>
+                        <a href="supervisedlearning.html">
+                            <li>Supervised Learning</li>
+                        </a>
+                        <a href="deeplearning.html">
+                            <li>Deep Learning</li>
+                        </a>
+                        <a href="classification.html">
+                            <li>Classification Algorithms</li>
+                        </a>
+                        <a href="regression.html">
+                            <li>Regression Algorithms</li>
+                        </a>
+                        <a href="ensemblemethods.html">
+                            <li>Ensemble Methods</li>
+                        </a>
+                        <a href="probabilisticstatisticalmethods.html">
+                            <li>Probabilistic and Statistical Method</li>
+                        </a>
+                        </a>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!-- // content -->
+
+    </div>
+    <!-- // page wrapper -->
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h1 class="logo-text"><span>AI</span>-AlgoHub</h1>
+                <p>
+                    AI-AlgoHub showcases and explains AI algorithms, featuring popular machine learning techniques and
+                    trending AI
+                    methods. It provides resources for understanding and applying computational intelligence.
+                </p>
+                <div class="contact">
+                    <div class="contact-item">
+                        <i class="fa fa-envelope"></i>
+                        <span>abhay517035@gmail.com</span>
+                    </div>
+                </div>
+                <div class="social" style="position: relative; right:4px;">
+                    <a href="https://github.com/abhayrohit" target="_blank"><i class="fa fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/abhay-rohit-6053b8283/" target="_blank"><i
+                            class="fa fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section quick-links">
+                <h2 style="position:relative;top:5px;">Quick Links</h2>
+                <ul>
+                    <a href="index.html">
+                        <li>Home</li>
+                    </a>
+                    <a href="about.html">
+                        <li>About</li>
+                    </a>
+                    <a href="membership.html">
+                        <li>Membership</li>
+                    </a>
+                    <a href="algorithmrepository.html">
+                        <li>Algorithm Repository
+                        </li>
+                    </a>
+
+                </ul>
+            </div>
+            <div class="footer-section contact-form">
+                <h2 style="position:relative; top:5px;">Contact us</h2>
+                <br>
+                <form action="">
+                    <input style="font-family:'Mona-Sans';" type="email" name="email" class="text-input contact-input"
+                        placeholder="Your email address">
+                    <textarea style="font-family:'Mona-Sans';" rows="3" name="message" class="text-input contact-input"
+                        placeholder="Please drop your feedback here"></textarea>
+                    <button href="index.html" type="submit" class="btn btn-big contact-btn">
+                        <i class="fa fa-envelope"></i>
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div style="position:relative;top:30px;" class="footer-bottom">
+            &copy; 2024 AI-AlgoHub | Designed by AI-AlgoHub Team
+        </div>
+    </div>
+    <!-- // FOOTER -->
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.menu-toggle').on('click', function () {
+                $('nav').toggleClass('showing');
+            });
+
+            $(document).on('click', function (event) {
+                if (!$(event.target).closest('nav, .menu-toggle').length) {
+                    $('nav').removeClass('showing');
+                }
+            });
+
+            $('nav').on('click', function (event) {
+                event.stopPropagation();
+            });
+        });
+    </script>
+    <script src="js/scripts.js"></script>
+
+</body>
+
+</html>

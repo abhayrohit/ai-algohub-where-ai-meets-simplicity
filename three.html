@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        @media only screen and (max-width: 974px) {
+
+            /* CONTENT */
+            .content {
+                width: 100%;
+                color: black;
+            }
+
+            /* FOOTER */
+            .footer .footer-content .footer-section {
+                padding: 20px;
+            }
+
+            .footer .footer-content .about .contact {
+                margin-top: 18px;
+            }
+
+            .auth-content {
+                width: 40%;
+            }
+
+            #outputimage {
+                height: 10px;
+                position: relative;
+                right: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+                width: 40px;
+                height: 40px;
+                margin: 10px;
+                float: right;
+                cursor: pointer;
+                text-align: center;
+                font-size: 30px;
+                color: #96002d;
+            }
+
+            .menu-toggle:before {
+                content: '\f0c9';
+                font-family: fontAwesome;
+                line-height: 40px;
+            }
+
+            nav {
+                width: 100%;
+                background: #090909;
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                z-index: 1000;
+            }
+
+            nav.showing {
+                display: block;
+            }
+
+            nav ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+            }
+
+            nav ul li {
+                display: block;
+                width: 100%;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 15px;
+                color: white;
+                text-decoration: none;
+            }
+
+            nav ul li a:hover {
+                color: #ff014f;
+            }
+
+            header nav ul li ul {
+                position: static;
+                display: none;
+            }
+
+            header nav ul li:hover ul {
+                display: block;
+            }
+
+            header nav ul li ul li a {
+                padding-left: 50px;
+            }
+
+            #outputimage {
+                height: 10px;
+            }
+        }
+
+        #outputimage {
+            height: 270px;
+        }
+
+        .language-python {
+            font-size: 1em;
+            font-family: 'Mona-Sans';
+            position: relative;
+            right: 10px;
+        }
+
+        pre {
+            max-height: 300px;
+            overflow-y: scroll;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            white-space: pre-wrap;
+        }
+    </style>
+
+    <title>Linear Regression</title>
+</head>
+
+<body>
+
+    <!-- header -->
+    <header class="clearfix">
+        <div class="logo">
+            <a href="index.html">
+                <h1 class="logo-text"><span>AI</span>-AlgoHub</h1>
+            </a>
+        </div>
+        <div class="fa fa-reorder menu-toggle"></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="membership.html">Membership</a></li>
+                <li><a href="login.html"><i class="fa fa-user" aria-hidden="true"></i> Account</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- // header -->
+
+    <!-- Page wrapper -->
+    <div class="page-wrapper">
+
+        <!-- content -->
+        <div class="content clearfix">
+            <div class="page-content single">
+                <h2 style="text-align: center;color:#96002d;font-size:50px"><b>Linear Regression</b></h2>
+                <br>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Introduction to Linear Regression</b></h3>
+                    <p>Linear regression is a statistical method used to model the relationship between a dependent
+                        variable and one or more independent variables. It assumes a linear relationship between the
+                        variables, meaning that the relationship can be represented by a straight line</p>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>The Linear Regression Equation</b></h3>
+                    <p>The equation for linear regression is:</p>
+                    <p><b>y = mx + b</b></p>
+                    <ul>
+                        <li>y: is the dependent variable (the one we want to predict)</li>
+                        <li>x: is the independent variable (the one we use to make predictions)</li>
+                        <li>m: is the slope of the line (how steep the line is)</li>
+                        <li>b: is the y-intercept (where the line crosses the y-axis)</li>
+                    </ul>
+                </section>
+                <!-- Working -->
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Working Mechanism of Linear Regression</b></h3>
+                    <img src="images/lr_working.png">
+                    <h3 style="color:black;font-size:26px"><b>1.Data Collection</b></h3>
+                    <ul>
+                        <li>Gather relevant data for the dependent and independent variables.</li>
+                        <li>Ensure the data is representative of the population you want to study.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>2.Data Exploration:</b></h3>
+                    <ul>
+                        <li><b>Visualization:</b>Create scatter plots to visually inspect the
+                            relationship between the variables.</li>
+                        <li><b>Correlation:</b>Calculate the correlation coefficient to quantify the
+                            strength and direction of the linear relationship.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>3.Model Building:</b></h3>
+                    <p>Define the linear regression equation:</p>
+                    <p><b>y = mx + b</b></p>
+                    <ul>
+                        <li>y is the dependent variable</li>
+                        <li>x is the independent variable</li>
+                        <li>m is the slope of the linee</li>
+                        <li>b is the y-intercept</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>4.Parameter Estimation</b></h3>
+                    <p>Once the model is trained, it can be used to make predictions on new data:</p>
+                    <ul>
+                        <li><b>Least Squares Method:</b> This is the most common method to estimate the values of m and
+                            b. It
+                            minimizes the sum of the squared differences between the actual y values and the predicted y
+                            values (based on the regression line).</li>
+                        <li><b>Normal Equations:</b> A set of equations derived from the least squares method can be
+                            solved to
+                            find the optimal values of m and b.</li>
+                    </ul>
+                    <h3 style="color:black;font-size:26px"><b>5.Model Evaluation:</b></h3>
+                    <ul>
+                        <li><b>Goodness of Fit:</b> Assess how well the model fits the data
+                            using metrics like:</li>
+                        <ul>
+                            <li><b>R-squared:</b> Measures the proportion of variance in y explained by the model.</li>
+                            <li><b>Mean Squared Error (MSE):</b> Measures the average squared difference between the
+                                actual and predicted values.</li>
+                            <li><b>Root Mean Squared Error (RMSE):The square root of MSE, providing a measure in the
+                                    same units as the dependent variable.</b></li>
+                        </ul>
+                        <li><b>Hypothesis Testing:</b> Use statistical tests (e.g., t-test, F-test) to determine if the
+                            model
+                            is statistically significant.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Advantages of Linear Regression</b></h3>
+                    <ul>
+                        <li>Simple and interpretable: Linear regression provides a clear mathematical model that is easy
+                            to understand and interpret.</li>
+                        <li>Computationally efficient: Linear regression is relatively fast to train, even on large
+                            datasets.</li>
+                        <li>Useful for understanding relationships between variables: The coefficients in a linear
+                            regression model provide insights into the importance and effect of each feature.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Disadvantages of Linear Regression</b></h3>
+                    <ul>
+                        <li>Assumes linearity: Linear regression assumes a linear relationship between the independent
+                            and dependent variables, which may not always be the case.</li>
+                        <li>Sensitive to outliers: Linear regression can be heavily influenced by outliers in the data,
+                            which can distort the model.</li>
+                        <li>Limited to continuous data: Linear regression is not suitable for predicting categorical
+                            variables.</li>
+                    </ul>
+                </section>
+                <!-- Sample Code Example -->
+                <section>
+                    <h3 style="color:#96002d;font-size:36px"><b>Sample Code Example</b></h3>
+                    <p>Linear Regression with Python - Predicting a Target Variable</p>
+                    <pre>
+        <code class="language-python">
+            import numpy as np
+            import matplotlib.pyplot as plt
+            from sklearn.linear_model import LinearRegression
+            from sklearn.model_selection import train_test_split
+            from sklearn.metrics import mean_squared_error
+            
+            # Generate some synthetic data
+            np.random.seed(0)
+            X = 2 * np.random.rand(100, 1)  # Features
+            y = 4 + 3 * X + np.random.randn(100, 1)  # Target
+            
+            # Split the data into training and testing sets
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+            
+            # Create and train the model
+            model = LinearRegression()
+            model.fit(X_train, y_train)
+            
+            # Make predictions
+            y_pred = model.predict(X_test)
+            
+            # Calculate the mean squared error
+            mse = mean_squared_error(y_test, y_pred)
+            print(f"Mean Squared Error: {mse}")
+            
+            # Plotting
+            plt.figure(figsize=(10, 6))
+            
+            # Scatter plot of the test data
+            plt.scatter(X_test, y_test, color='blue', label='Actual data')
+            
+            # Line plot of the predictions
+            plt.plot(X_test, y_pred, color='red', linewidth=2, label='Regression line')
+            
+            plt.xlabel('Feature')
+            plt.ylabel('Target')
+            plt.title('Linear Regression')
+            plt.legend()
+            
+            plt.show()
+            
+        </code>
+        <h1 style="color:black;position:relative;left:25px;"><b>Output:</b></h1>
+        <img id="outputimage" src="images/lr_output.png">
+            </div>
+        </pre>
+                    <div class="sidebar single">
+
+                        <div class="section popular">
+                            <h2>Popular Algorithms</h2>
+
+                            <div class="post clearfix">
+                                <img src="images/p.webp">
+                                <a href="seven.html" class="title">Perceptron</a>
+                            </div>
+                            <div class="post clearfix">
+                                <img src="images/rnn.jpeg">
+                                <a href="ten.html" class="title">Recurrent Neural Network (RNN)</a>
+                            </div>
+                            <div class="post clearfix">
+                                <img src="images/nb.webp">
+                                <a href="six.html" class="title">Naive Bayes</a>
+                            </div>
+                            <div class="post clearfix">
+                                <img src="images\dt.jpeg">
+                                <a href="one.html" class="title">Decision Trees</a>
+                            </div>
+                            <div class="post clearfix">
+                                <img src="images/rfc.webp">
+                                <a href="five.html" class="title">Random Forest</a>
+                            </div>
+
+                        </div>
+
+                        <div class="section topics">
+                            <h2>Algorithm Repository
+                            </h2>
+                            <ul>
+                                <a href="supervisedlearning.html">
+                                    <li>Supervised Learning</li>
+                                </a>
+                                <a href="deeplearning.html">
+                                    <li>Deep Learning</li>
+                                </a>
+                                <a href="classification.html">
+                                    <li>Classification Algorithms</li>
+                                </a>
+                                <a href="regression.html">
+                                    <li>Regression Algorithms</li>
+                                </a>
+                                <a href="ensemblemethods.html">
+                                    <li>Ensemble Methods</li>
+                                </a>
+                                <a href="probabilisticstatisticalmethods.html">
+                                    <li>Probabilistic and Statistical Method</li>
+                                </a>
+                            </ul>
+                        </div>
+
+                    </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h1 class="logo-text"><span>AI</span>-AlgoHub</h1>
+                    <p>
+                        AI-AlgoHub showcases and explains AI algorithms, featuring popular machine learning techniques
+                        and trending AI
+                        methods. It provides resources for understanding and applying computational intelligence.
+                    </p>
+                    <div class="contact">
+                        <div class="contact-item">
+                            <i class="fa fa-envelope"></i>
+                            <span>abhay517035@gmail.com</span>
+                        </div>
+                    </div>
+                    <div class="social" style="position: relative; right:4px;">
+                        <a href="https://github.com/abhayrohit" target="_blank"><i class="fa fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/abhay-rohit-6053b8283/" target="_blank"><i
+                                class="fa fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section quick-links">
+                    <h2 style="position:relative;top:5px;">Quick Links</h2>
+                    <ul>
+                        <a href="index.html">
+                            <li>Home</li>
+                        </a>
+                        <a href="about.html">
+                            <li>About</li>
+                        </a>
+                        <a href="membership.html">
+                            <li>Membership</li>
+                        </a>
+                        <a href="algorithmrepository.html">
+                            <li>Algorithm Repository
+                            </li>
+                        </a>
+
+                    </ul>
+                </div>
+                <div class="footer-section contact-form">
+                    <h2 style="position:relative; top:5px;">Contact us</h2>
+                    <br>
+                    <form action="">
+                        <input style="font-family:'Mona-Sans';" type="email" name="email"
+                            class="text-input contact-input" placeholder="Your email address">
+                        <textarea style="font-family:'Mona-Sans';" rows="3" name="message"
+                            class="text-input contact-input" placeholder="Please drop your feedback here"></textarea>
+                        <button href="index.html" type="submit" class="btn btn-big contact-btn">
+                            <i class="fa fa-envelope"></i>
+                            Send
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2024 AI-AlgoHub | Designed by AI-AlgoHub Team
+            </div>
+        </div>
+        <!-- // FOOTER -->
+        <!-- JQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.menu-toggle').on('click', function () {
+                    $('nav').toggleClass('showing');
+                });
+
+                $(document).on('click', function (event) {
+                    if (!$(event.target).closest('nav, .menu-toggle').length) {
+                        $('nav').removeClass('showing');
+                    }
+                });
+
+                $('nav').on('click', function (event) {
+                    event.stopPropagation();
+                });
+            });
+        </script>
+
+        <script src="js/scripts.js"></script>
+
+</body>
+
+</html>
