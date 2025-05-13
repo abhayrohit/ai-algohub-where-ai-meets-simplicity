@@ -1,6 +1,9 @@
 # AI-AlgoHub: Simplify. Master. Create.
 AI-AlgoHub: A website showcasing AI and ML algorithms with detailed explanations and insights.
 
+[Click here to visit AI-AlgoHub](https://abhayrohit.github.io/ai-algohub-where-ai-meets-simplicity/)
+
+
 ## Overview
 **AI-AlgoHub** is a static web-based platform developed as part of my **B.Tech (CSE-AI) semester project**. It is designed to showcase and explain core AI and machine learning algorithms in a simple, intuitive, and educational format. This project reflects both theoretical understanding and practical application of trending computational intelligence methods.
 
