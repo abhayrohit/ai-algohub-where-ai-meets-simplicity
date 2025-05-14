@@ -1,5 +1,5 @@
 # AI-AlgoHub: Simplify. Master. Create.
-AI-AlgoHub: A website showcasing AI and ML algorithms with detailed explanations and insights.
+AI-AlgoHub: A website made using HTML, CSS and Javascript that showcases AI and ML algorithms with detailed explanations and insights.
 
 [Click here to visit AI-AlgoHub](https://abhayrohit.github.io/ai-algohub-where-ai-meets-simplicity/)
 
